@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "tsc",
 		"dev": "tsx watch ./src/app.ts",
-		"seed-db": "node db/populatedb.js",
+		"seed-db": "node db/populatedb.ts",
 		"build:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch"
 	},
 	"author": "Henry Lin",
@@ -14,7 +14,7 @@
 	"dependencies": {
 		"@tailwindcss/cli": "^4.2.0",
 		"dotenv": "^17.3.1",
-		"ejs": "^4.0.1",
+		"eta": "^4.5.1",
 		"express": "^5.2.1",
 		"pg": "^8.18.0",
 		"tailwindcss": "^4.2.0"
@@ -23,8 +23,8 @@
 		"@biomejs/biome": "2.4.4",
 		"@tailwindcss/typography": "^0.5.19",
 		"@types/express": "^5.0.6",
-		"@types/pg": "^8.16.0",
 		"@types/node": "^25.3.0",
+		"@types/pg": "^8.16.0",
 		"daisyui": "^5.5.19",
 		"lefthook": "^2.1.1",
 		"tsx": "^4.21.0",

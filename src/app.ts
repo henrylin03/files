@@ -1,19 +1,26 @@
 import path from "node:path";
+import { Eta } from "eta";
 import express from "express";
+import buildEtaEngine from "./lib/buildEtaEngine.js";
 
 const app = express();
 
 const currentPath = import.meta.dirname;
 
+const viewsPath = path.join(currentPath, "views");
+
+const eta = new Eta({ views: viewsPath });
+app.set("views", viewsPath);
+app.set("view engine", "eta");
+app.engine("eta", buildEtaEngine(eta));
+
 app.use(express.static(path.join(currentPath, "..", "public")));
-
-app.set("view engine", "ejs");
-app.set("views", path.join(currentPath, "views"));
-
-/* middleware to parse data in request body */
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (_req, res) => res.render("index"));
+/* ROUTES */
+app.get("/", (_req, res) => {
+	res.render("index", { name: "henry" });
+});
 
 const PORT = 3000;
 app.listen(PORT, (err) => {
