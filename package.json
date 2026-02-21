@@ -9,7 +9,6 @@
 		"build:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch"
 	},
 	"author": "Henry Lin",
-	"license": "MIT",
 	"type": "module",
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.4.1",
