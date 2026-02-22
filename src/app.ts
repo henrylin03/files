@@ -2,11 +2,17 @@ import path from "node:path";
 import { Eta } from "eta";
 import express from "express";
 import buildEtaEngine from "./lib/buildEtaEngine.js";
+import "dotenv/config";
 
 const app = express();
 
-const currentPath = import.meta.dirname;
+const cookieSecret = process.env.COOKIE_SECRET;
+if (!cookieSecret)
+	throw new Error(
+		"COOKIE_SECRET env variable is required for session-based auth",
+	);
 
+const currentPath = import.meta.dirname;
 const viewsPath = path.join(currentPath, "views");
 
 const eta = new Eta({ views: viewsPath });
