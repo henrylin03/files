@@ -36,7 +36,7 @@ app.use(
 		store: prismaSessionStore,
 		secret: cookieSecret,
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		cookie: {
 			maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days in ms
 		},
