@@ -3,7 +3,9 @@ import { Eta } from "eta";
 import express from "express";
 import buildEtaEngine from "./lib/buildEtaEngine.js";
 import "dotenv/config";
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import session from "express-session";
+import { prisma } from "./lib/prisma.js";
 
 const app = express();
 
@@ -24,13 +26,19 @@ app.engine("eta", buildEtaEngine(eta));
 app.use(express.static(path.join(currentPath, "..", "public")));
 app.use(express.urlencoded({ extended: true }));
 
+const prismaSessionStore = new PrismaSessionStore(prisma, {
+	checkPeriod: 2 * 60 * 1000, // ms
+	dbRecordIdIsSessionId: true,
+});
+
 app.use(
 	session({
+		store: prismaSessionStore,
 		secret: cookieSecret,
 		resave: false,
-		saveUninitialized: false,
+		saveUninitialized: true,
 		cookie: {
-			maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
+			maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days in ms
 		},
 	}),
 );
