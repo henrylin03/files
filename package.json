@@ -9,9 +9,10 @@
 		"build:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch"
 	},
 	"author": "Henry Lin",
-	"license": "MIT",
 	"type": "module",
 	"dependencies": {
+		"@prisma/adapter-pg": "^7.4.1",
+		"@prisma/client": "^7.4.1",
 		"@tailwindcss/cli": "^4.2.0",
 		"dotenv": "^17.3.1",
 		"eta": "^4.5.1",
@@ -27,6 +28,7 @@
 		"@types/pg": "^8.16.0",
 		"daisyui": "^5.5.19",
 		"lefthook": "^2.1.1",
+		"prisma": "^7.4.1",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
 	}
