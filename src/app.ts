@@ -3,6 +3,7 @@ import { Eta } from "eta";
 import express from "express";
 import buildEtaEngine from "./lib/buildEtaEngine.js";
 import "dotenv/config";
+import session from "express-session";
 
 const app = express();
 
@@ -22,6 +23,17 @@ app.engine("eta", buildEtaEngine(eta));
 
 app.use(express.static(path.join(currentPath, "..", "public")));
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+	session({
+		secret: cookieSecret,
+		resave: false,
+		// saveUninitialized: false,
+		cookie: {
+			maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
+		},
+	}),
+);
 
 /* ROUTES */
 app.get("/", (_req, res) => {
