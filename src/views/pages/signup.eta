@@ -1,10 +1,13 @@
-<% layout("./layouts/baseLayout") %>
+<% layout("/layouts/baseLayout") %>
 
 <% /* TODO: display errors, but still with the old form data intact */ %>
 
 <main class="prose">
   <h1>Sign up</h1>
   <form action="/signup" method="post">
+    <% if (Array.isArray(it.errors) && it.errors.length > 0) { %>
+      <%~ include("partials/errorList", { option: true }) %>
+    <% } %>
     <ul class="list-none p-0">
       <li class="flex flex-col gap-1">
         <label for="firstNameInput">First name*</label>

@@ -12,12 +12,10 @@ const signupPost = [
 	validateSignupForm,
 	async (req: Request, res: Response) => {
 		const errors = validationResult(req);
-		console.log("errors:", errors.array());
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/signup", { errors: errors.array() });
 
 		const { firstName, lastName, username, password } = matchedData(req);
-		console.log(matchedData(req));
 
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
