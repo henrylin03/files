@@ -1,5 +1,7 @@
 <% layout("./layouts/baseLayout") %>
 
+<% /* TODO: display errors, but still with the old form data intact */ %>
+
 <main class="prose">
   <h1>Sign up</h1>
   <form action="/signup" method="post">
