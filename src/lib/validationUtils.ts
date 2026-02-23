@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { prisma } from "./prisma.js";
 
 const ALPHA_ERROR = "must only contain letters.";
 
@@ -17,9 +18,15 @@ const validateSignupForm = [
 		.isLength({ min: 2, max: 64 })
 		.withMessage("Last name must be between 2 and 64 characters"),
 
-	// TODO: check if username is already in use
 	body("username")
 		.trim()
+		.custom(async (inputtedUsername: string) => {
+			const user = await prisma.user.findUnique({
+				where: { username: inputtedUsername },
+			});
+			if (user)
+				throw new Error("Username is already in use. Please log in instead.");
+		})
 		.isEmail()
 		.withMessage("Please enter a valid email address")
 		.isLength({ max: 256 })
@@ -30,7 +37,10 @@ const validateSignupForm = [
 		.withMessage("Password must be between 8 and 64 characters"),
 
 	body("confirmPassword")
-		.custom((value: string, { req }) => value === req.body.password)
+		.custom(
+			(inputtedConfirmPassword: string, { req }) =>
+				inputtedConfirmPassword === req.body.password,
+		)
 		.withMessage("Passwords must match"),
 ];
 
