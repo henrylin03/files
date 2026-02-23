@@ -1,0 +1,30 @@
+<% layout("./layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>Sign up</h1>
+  <form action="/signup" method="post">
+    <ul class="list-none p-0">
+      <li class="flex flex-col gap-1">
+        <label for="firstNameInput">First name*</label>
+        <input type="text" id="firstNameInput" name="firstName" class="input" required />
+      </li>
+      <li class="flex flex-col gap-1">
+        <label for="lastNameInput">Last name*</label>
+        <input type="text" id="lastNameInput" name="lastName" class="input" required />
+      </li>
+      <li class="flex flex-col gap-1">
+        <label for="usernameInput">Email address*</label>
+        <input type="email" id="usernameInput" name="username" class="input" required />
+      </li>
+      <li class="flex flex-col gap-1">
+        <label for="passwordInput">Password*</label>
+        <input type="password" id="passwordInput" name="password" class="input" required />
+      </li>
+      <li class="flex flex-col gap-1">
+        <label for="confirmPasswordInput">Confirm password*</label>
+        <input type="password" id="confirmPasswordInput" name="confirmPassword" class="input" required />
+      </li>
+    </ul>
+    <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+  </form>
+</main>

@@ -6,6 +6,7 @@ import "dotenv/config";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import session from "express-session";
 import { prisma } from "./lib/prisma.js";
+import { authRouter } from "./routers/authRouter.js";
 import { indexRouter } from "./routers/indexRouter.js";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(
 
 /* ROUTES */
 app.use("/", indexRouter);
+app.use("/", authRouter);
 
 const PORT = 3000;
 app.listen(PORT, (err) => {
