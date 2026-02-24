@@ -1,5 +1,7 @@
 <% layout("/layouts/baseLayout") %>
 
 <main class="prose">
-  <h1>This is a protected route</h1>
+  <h1>This is meant to be a protected route</h1>
+  <h2>Hi <%= it.currentUser.firstName %></h2>
+  <a href="/files/upload" role="button" class="btn btn-primary btn-lg">Upload file</a>
 </main>

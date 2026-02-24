@@ -1,0 +1,21 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>Upload file</h1>
+  <form action="/files/upload" method="post">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-sm">Choose a file*</legend>
+      <input
+        type="file"
+        class="file-input"
+        name="file"
+        accept="<%= it.allowedFileTypes %>"
+        required
+      />
+      <label class="label">Max size 2MB</label>
+    </fieldset>
+    <button type="submit" class="mt-8 btn btn-primary btn-lg">
+      Upload file
+    </button>
+  </form>
+</main>

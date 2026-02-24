@@ -8,6 +8,7 @@ import session from "express-session";
 import { passport } from "./config/passport.js";
 import { prisma } from "./lib/prisma.js";
 import { authRouter } from "./routers/authRouter.js";
+import { filesRouter } from "./routers/filesRouter.js";
 import { indexRouter } from "./routers/indexRouter.js";
 
 const app = express();
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 /* ROUTES */
 app.use("/", indexRouter);
 app.use("/", authRouter);
+app.use("/files", filesRouter);
 
 const PORT = 3000;
 app.listen(PORT, (err) => {
