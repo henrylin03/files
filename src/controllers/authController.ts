@@ -4,6 +4,10 @@ import { matchedData, validationResult } from "express-validator";
 import { prisma } from "@/lib/prisma.js";
 import { validateSignupForm } from "@/lib/validationUtils.js";
 
+const loginGet = async (_req: Request, res: Response) => {
+	res.render("pages/login", { title: "Log in" });
+};
+
 const signupGet = async (_req: Request, res: Response) => {
 	res.render("pages/signup", { title: "Sign up" });
 };
@@ -42,4 +46,4 @@ const signupPost = [
 	},
 ];
 
-export { signupGet, signupPost };
+export { loginGet, signupGet, signupPost };

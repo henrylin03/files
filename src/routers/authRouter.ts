@@ -1,9 +1,15 @@
 import { Router } from "express";
-import { signupGet, signupPost } from "@/controllers/authController.js";
+import {
+	loginGet,
+	signupGet,
+	signupPost,
+} from "@/controllers/authController.js";
 
 const authRouter = Router();
 
 authRouter.get("/signup", signupGet);
 authRouter.post("/signup", ...signupPost);
+
+authRouter.get("/login", loginGet);
 
 export { authRouter };
