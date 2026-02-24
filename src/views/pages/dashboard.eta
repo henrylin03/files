@@ -1,0 +1,5 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>This is a protected route</h1>
+</main>

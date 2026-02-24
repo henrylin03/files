@@ -6,4 +6,8 @@ const homePageGet = (_req: Request, res: Response) => {
 	res.redirect("/login");
 };
 
-export { homePageGet };
+const dashboardPageGet = (_req: Request, res: Response) => {
+	res.render("pages/dashboard", { title: "All files & folders" });
+};
+
+export { homePageGet, dashboardPageGet };
