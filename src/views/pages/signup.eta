@@ -4,20 +4,20 @@
   <h1>Sign up</h1>
   <form action="/signup" method="post">
     <% if (Array.isArray(it.errors) && it.errors.length > 0) { %>
-      <%~ include("partials/errorList", { option: true }) %>
+    <%~ include("partials/errorList", { option: true }) %>
     <% } %>
     <ul class="list-none p-0">
       <li class="flex flex-col gap-1">
         <label for="firstNameInput">First name*</label>
-        <input type="text" id="firstNameInput" name="firstName" class="input" value="<%= it.firstName %>" required />
+        <input type="text" id="firstNameInput" name="firstName" class="input" value="<%= it.firstName ? it.firstName : '' %>" required />
       </li>
       <li class="flex flex-col gap-1">
         <label for="lastNameInput">Last name*</label>
-        <input type="text" id="lastNameInput" name="lastName" class="input" value="<%= it.lastName %>" required />
+        <input type="text" id="lastNameInput" name="lastName" class="input" value="<%= it.lastName ? it.lastName : '' %>" required />
       </li>
       <li class="flex flex-col gap-1">
         <label for="usernameInput">Email address*</label>
-        <input type="email" id="usernameInput" name="username" class="input" value="<%= it.username %>" required />
+        <input type="email" id="usernameInput" name="username" class="input" value="<%= it.username ? it.username : '' %>" required />
       </li>
       <li class="flex flex-col gap-1">
         <label for="passwordInput">Password*</label>
