@@ -1,12 +1,18 @@
 import bcrypt from "bcryptjs";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
+import passport from "@/config/passport.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateSignupForm } from "@/lib/validationUtils.js";
 
 const loginGet = async (_req: Request, res: Response) => {
 	res.render("pages/login", { title: "Log in" });
 };
+
+const loginPost = passport.authenticate("local", {
+	successRedirect: "/",
+	failureRedirect: "/login",
+});
 
 const signupGet = async (_req: Request, res: Response) => {
 	res.render("pages/signup", { title: "Sign up" });
@@ -46,4 +52,4 @@ const signupPost = [
 	},
 ];
 
-export { loginGet, signupGet, signupPost };
+export { loginGet, loginPost, signupGet, signupPost };
