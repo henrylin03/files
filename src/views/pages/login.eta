@@ -3,8 +3,8 @@
 <main class="prose">
   <h1>Login</h1>
   <form action="/login" method="post">
-    <% if (Array.isArray(it.errors) && it.errors.length > 0) { %>
-    <%~ include("partials/errorList", { option: true }) %>
+    <% if (it.error) { %>
+    <%~ include("partials/errorBlock", { option: true }) %>
     <% } %>
     <ul class="list-none p-0">
       <li class="flex flex-col gap-1">

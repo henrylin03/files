@@ -1,17 +1,23 @@
 import bcrypt from "bcryptjs";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
-import passport from "@/config/passport.js";
+import { passport } from "@/config/passport.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateSignupForm } from "@/lib/validationUtils.js";
 
-const loginGet = async (_req: Request, res: Response) => {
-	res.render("pages/login", { title: "Log in" });
+const loginGet = async (req: Request, res: Response) => {
+	const { session } = req;
+	if (!session.messages || !session.messages.length)
+		return res.render("pages/login", { title: "Log in" });
+
+	const loginErrorMessage = session.messages.at(-1);
+	res.render("pages/login", { title: "Log in", error: loginErrorMessage });
 };
 
 const loginPost = passport.authenticate("local", {
 	successRedirect: "/",
 	failureRedirect: "/login",
+	failureMessage: true,
 });
 
 const signupGet = async (_req: Request, res: Response) => {
