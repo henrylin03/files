@@ -6,8 +6,7 @@ import { prisma } from "@/lib/prisma.js";
 import { validateSignupForm } from "@/lib/validationUtils.js";
 
 const loginGet = async (req: Request, res: Response) => {
-	const { user } = req;
-	if (user) return res.redirect("/dashboard");
+	if (req.user) return res.redirect("/dashboard");
 
 	const { session } = req;
 	if (!session.messages || !session.messages.length)
@@ -23,7 +22,9 @@ const loginPost = passport.authenticate("local", {
 	failureMessage: true,
 });
 
-const signupGet = async (_req: Request, res: Response) => {
+const signupGet = async (req: Request, res: Response) => {
+	if (req.user) return res.redirect("/dashboard");
+
 	res.render("pages/signup", { title: "Sign up" });
 };
 
