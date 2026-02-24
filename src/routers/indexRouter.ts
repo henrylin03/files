@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { homePageGet } from "@/controllers/indexController.js";
+import {
+	dashboardPageGet,
+	homePageGet,
+} from "@/controllers/indexController.js";
 
 const indexRouter = Router();
 
 indexRouter.get("/", homePageGet);
+indexRouter.get("/dashboard", dashboardPageGet);
 
 export { indexRouter };

@@ -1,0 +1,3 @@
+<article role="alert" class="alert alert-error alert-outline px-4 py-0 mb-6">
+  <p><%= it.error %></p>
+</article>

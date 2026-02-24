@@ -1,0 +1,21 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>Login</h1>
+  <form action="/login" method="post">
+    <% if (it.error) { %>
+    <%~ include("partials/errorBlock", { option: true }) %>
+    <% } %>
+    <ul class="list-none p-0">
+      <li class="flex flex-col gap-1">
+        <label for="usernameInput">Email address</label>
+        <input type="email" id="usernameInput" name="username" class="input" value="<%= it.username ? it.username : "" %>" required />
+      </li>
+      <li class="flex flex-col gap-1">
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" name="password" class="input" required />
+      </li>
+    </ul>
+    <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+  </form>
+</main>
