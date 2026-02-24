@@ -6,6 +6,9 @@ import { prisma } from "@/lib/prisma.js";
 import { validateSignupForm } from "@/lib/validationUtils.js";
 
 const loginGet = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (user) return res.redirect("/dashboard");
+
 	const { session } = req;
 	if (!session.messages || !session.messages.length)
 		return res.render("pages/login", { title: "Log in" });
