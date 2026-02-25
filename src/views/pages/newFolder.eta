@@ -1,0 +1,12 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>Add folder</h1>
+  <form action="/folders/new" method="post">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-sm">Folder name*</legend>
+      <input type="text" class="input" name="folderName" required />
+    </fieldset>
+    <button type="submit" class="btn btn-primary btn-lg mt-8">Add folder</button>
+  </form>
+</main>

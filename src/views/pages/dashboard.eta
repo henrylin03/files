@@ -4,4 +4,5 @@
   <h1>This is meant to be a protected route</h1>
   <h2>Hi <%= it.currentUser.firstName %></h2>
   <a href="/files/upload" role="button" class="btn btn-primary btn-lg">Upload file</a>
+  <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
 </main>
