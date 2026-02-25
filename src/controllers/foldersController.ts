@@ -55,4 +55,9 @@ const addFolderPost = [
 	},
 ];
 
-export { addFolderGet, addFolderPost, foldersGet };
+const folderDelete = (req: Request, res: Response) => {
+	console.log(req.params);
+	res.end();
+};
+
+export { addFolderGet, addFolderPost, folderDelete, foldersGet };

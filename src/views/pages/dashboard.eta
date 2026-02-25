@@ -19,3 +19,5 @@
     <% } %>
   </section>
 </main>
+<%~ include("/partials/confirmModal") %>
+<script src="./js/dashboardScript.js"></script>
