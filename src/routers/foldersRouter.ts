@@ -9,6 +9,6 @@ const foldersRouter = Router();
 
 foldersRouter.get("/", foldersGet);
 foldersRouter.get("/new", addFolderGet);
-foldersRouter.post("/new", addFolderPost);
+foldersRouter.post("/new", ...addFolderPost);
 
 export { foldersRouter };
