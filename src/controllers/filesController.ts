@@ -36,13 +36,8 @@ const uploadFileGet = (req: Request, res: Response) => {
 
 const uploadFilePost = [
 	upload.single("file"),
-	async (req: Request, res: Response) => {
-		if (!req.user) return res.redirect("/login");
-
-		console.log("req.file:", req.file);
-		console.log("req.body:", req.body);
-
-		res.redirect("/files/upload");
+	async (_req: Request, res: Response) => {
+		res.redirect("/dashboard");
 	},
 ];
 
