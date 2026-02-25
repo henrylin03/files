@@ -58,14 +58,14 @@ const addFolderPost = [
 			});
 		}
 
-		const _newFolder = await prisma.folder.create({
+		const newFolder = await prisma.folder.create({
 			data: {
 				name: folderName,
 				userId: user.id,
 			},
 		});
 
-		res.status(201).redirect("/folders");
+		res.status(201).redirect(`/folders/${newFolder.id}`);
 	},
 ];
 
