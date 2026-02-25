@@ -1,3 +1,4 @@
+import increment from "add-filename-increment";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { prisma } from "@/lib/prisma.js";
@@ -26,7 +27,14 @@ const addFolderPost = [
 				errors: errors.array(),
 			});
 
-		const { folderName } = matchedData(req);
+		let { folderName } = matchedData(req);
+		const existingFolderWithSameName = await prisma.folder.findUnique({
+			where: {
+				name: folderName,
+			},
+		});
+		if (existingFolderWithSameName)
+			folderName = increment(folderName, { platform: "win32" });
 
 		const _newFolder = await prisma.folder.create({
 			data: {
