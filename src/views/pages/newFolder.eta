@@ -1,0 +1,15 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>Add folder</h1>
+  <% if (Array.isArray(it.errors) && it.errors.length) { %>
+  <%~ include("partials/errorList.eta", { option: true }) %>
+  <% } %>
+  <form action="/folders/new" method="post">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-sm">Folder name*</legend>
+      <input type="text" class="input" name="folderName" placeholder="Enter a folder name" required />
+    </fieldset>
+    <button type="submit" class="btn btn-primary btn-lg mt-8">Add folder</button>
+  </form>
+</main>

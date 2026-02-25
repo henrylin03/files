@@ -1,9 +1,9 @@
 import { body } from "express-validator";
-import { prisma } from "./prisma.js";
+import { prisma } from "../prisma.js";
 
 const ALPHA_ERROR = "must only contain letters.";
 
-const validateSignupForm = [
+export const validateSignUpForm = [
 	body("firstName")
 		.trim()
 		.isAlpha("en-AU", { ignore: "-" })
@@ -49,5 +49,3 @@ const validateSignupForm = [
 		)
 		.withMessage("Passwords must match"),
 ];
-
-export { validateSignupForm };
