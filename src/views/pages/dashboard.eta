@@ -10,19 +10,12 @@
 
   <section aria-labelledby="folder-section-heading">
     <h2 id="folder-section-heading">Folders</h2>
+    <% if (Array.isArray(it.folders) && it.folders.length) { %>
     <section class="flex items-center justify-between gap-4 not-prose">
       <% it.folders.forEach(folder => { %>
-      <article class="shadow-md flex-1 min-w-fit bg-neutral-200 rounded-md py-4 pl-4 pr-6">
-        <a href="/folders/<%= folder.id %>">
-          <div class="flex items-center gap-2"><svg role="img" aria-label="folder icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-folder">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 3a1 1 0 0 1 .608 .206l.1 .087l2.706 2.707h6.586a3 3 0 0 1 2.995 2.824l.005 .176v8a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-11a3 3 0 0 1 2.824 -2.995l.176 -.005h4z" />
-            </svg>
-            <h2 class="card-title"><%= folder.name %></h2>
-          </div>
-        </a>
-      </article>
+      <%~ include("/partials/folderPreview.eta", { folder }) %>
       <% }) %>
     </section>
+    <% } %>
   </section>
 </main>
