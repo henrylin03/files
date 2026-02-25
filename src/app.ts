@@ -8,6 +8,7 @@ import session from "express-session";
 import { passport } from "./config/passport.js";
 import { prisma } from "./lib/prisma.js";
 import { authRouter } from "./routers/authRouter.js";
+import { dashboardRouter } from "./routers/dashboardRouter.js";
 import { filesRouter } from "./routers/filesRouter.js";
 import { foldersRouter } from "./routers/foldersRouter.js";
 import { indexRouter } from "./routers/indexRouter.js";
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
 /* ROUTES */
 app.use("/", indexRouter);
 app.use("/", authRouter);
+app.use("/dashboard", dashboardRouter);
 app.use("/files", filesRouter);
 app.use("/folders", foldersRouter);
 

@@ -5,9 +5,4 @@ const homePageGet = (req: Request, res: Response) => {
 	else res.redirect("/login");
 };
 
-const dashboardPageGet = (req: Request, res: Response) => {
-	if (!req.user) return res.redirect("/login");
-	res.render("pages/dashboard", { title: "All files & folders" });
-};
-
-export { homePageGet, dashboardPageGet };
+export { homePageGet };
