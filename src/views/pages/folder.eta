@@ -1,0 +1,6 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1>FOLDER NAME</h1>
+  <section class="folder-content"></section>
+</main>

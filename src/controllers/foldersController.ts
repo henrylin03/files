@@ -10,6 +10,20 @@ const foldersGet = async (_req: Request, res: Response) => {
 	res.redirect("/");
 };
 
+const folderGet = async (req: Request, res: Response) => {
+	if (!req.user) return res.status(403).redirect("/login");
+
+	const { id: userId } = req.user;
+	const { id: folderId } = req.params;
+
+	const folder = await prisma.folder.findUnique({
+		where: { userId, id: Number(folderId) },
+	});
+	if (folder === null) return res.status(404).render("pages/error");
+
+	res.end();
+};
+
 const addFolderGet = async (_req: Request, res: Response) => {
 	res.render("pages/newFolder", { title: PAGE_TITLE });
 };
@@ -55,4 +69,4 @@ const addFolderPost = [
 	},
 ];
 
-export { addFolderGet, addFolderPost, foldersGet };
+export { addFolderGet, addFolderPost, folderGet, foldersGet };
