@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
+import { prisma } from "@/lib/prisma.js";
 import { validateNewFolder } from "@/lib/validationUtils.js";
 
 const PAGE_TITLE = "Add folder";
@@ -15,6 +16,9 @@ const addFolderGet = async (_req: Request, res: Response) => {
 const addFolderPost = [
 	validateNewFolder,
 	async (req: Request, res: Response) => {
+		const { user } = req;
+		if (!user) return res.redirect("/login");
+
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/newFolder", {
@@ -22,8 +26,14 @@ const addFolderPost = [
 				errors: errors.array(),
 			});
 
-		const { folderName } = matchedData(req);
-		console.log(folderName);
+		const { folderName: name } = matchedData(req);
+
+		const _newFolder = await prisma.folder.create({
+			data: {
+				name,
+				userId: user.id,
+			},
+		});
 
 		res.redirect("/folders");
 	},
