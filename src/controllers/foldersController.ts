@@ -17,7 +17,7 @@ const addFolderPost = [
 	validateNewFolder,
 	async (req: Request, res: Response) => {
 		const { user } = req;
-		if (!user) return res.redirect("/login");
+		if (!user) return res.status(403).redirect("/login");
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
@@ -35,7 +35,7 @@ const addFolderPost = [
 			},
 		});
 
-		res.redirect("/folders");
+		res.status(201).redirect("/folders");
 	},
 ];
 
