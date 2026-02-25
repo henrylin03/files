@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { upload } from "@/lib/multer.js";
 
 const getAllowedFileTypesForUpload = (): string => {
 	const MS_WORD_FILE_TYPES = [
@@ -26,12 +27,23 @@ const filesGet = (_req: Request, res: Response) => {
 };
 
 const uploadFileGet = (req: Request, res: Response) => {
-	if (!req.user) return res.redirect("/");
-
+	if (!req.user) return res.redirect("/login");
 	res.render("pages/newFile", {
 		title: "Upload new file",
 		allowedFileTypes: getAllowedFileTypesForUpload(),
 	});
 };
 
-export { filesGet, uploadFileGet };
+const uploadFilePost = [
+	upload.single("file"),
+	async (req: Request, res: Response) => {
+		if (!req.user) return res.redirect("/login");
+
+		console.log("req.file:", req.file);
+		console.log("req.body:", req.body);
+
+		res.redirect("/files/upload");
+	},
+];
+
+export { filesGet, uploadFileGet, uploadFilePost };

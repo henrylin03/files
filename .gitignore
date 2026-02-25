@@ -4,3 +4,4 @@ dist/
 **/*:Zone.Identifier*
 /generated/prisma
 **/output.css
+**/uploads/**
