@@ -21,7 +21,7 @@ const folderGet = async (req: Request, res: Response) => {
 	});
 	if (folder === null) return res.status(404).render("pages/error");
 
-	res.end();
+	res.render("pages/folder", { folder });
 };
 
 const addFolderGet = async (_req: Request, res: Response) => {
