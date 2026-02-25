@@ -1,63 +1,30 @@
-<article
-  class="shadow-md flex-1 min-w-fit bg-neutral-200 rounded-md py-4 pl-4 pr-6"
->
-  <a href="/folders/<%= it.folder.id %>" class="flex items-center gap-6">
+<article class="shadow-md flex-1 min-w-fit bg-neutral-200 rounded-md py-4 pl-4 pr-0 flex items-center gap-6">
+  <a href="/folders/<%= it.folder.id %>">
     <div class="flex items-center gap-2">
-      <svg
-        role="img"
-        aria-label="folder icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="icon icon-tabler icons-tabler-filled icon-tabler-folder"
-      >
+      <svg role="img" aria-label="folder icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-folder">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path
-          d="M9 3a1 1 0 0 1 .608 .206l.1 .087l2.706 2.707h6.586a3 3 0 0 1 2.995 2.824l.005 .176v8a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-11a3 3 0 0 1 2.824 -2.995l.176 -.005h4z"
-        />
+        <path d="M9 3a1 1 0 0 1 .608 .206l.1 .087l2.706 2.707h6.586a3 3 0 0 1 2.995 2.824l.005 .176v8a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-11a3 3 0 0 1 2.824 -2.995l.176 -.005h4z" />
       </svg>
       <h2 class="card-title"><%= it.folder.name %></h2>
     </div>
-
-    <div class="dropdown">
-      <button
-        type="button"
-        tabindex="0"
-        role="button"
-        class="btn m-1 btn-circle btn-ghost btn-xs"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="See more"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical h-4 w-4"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-          <path d="M11 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-          <path d="M11 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-        </svg>
-      </button>
-
-      <ul
-        tabaindex="-1"
-        class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-      >
-        <li>
-          <a href="folders/rename/<%= it.folder.id %>">Rename</a>
-        </li>
-        <li>
-          <a href="folders/delete/<%= it.folder.id %>">Delete</a>
-        </li>
-      </ul>
-    </div>
   </a>
+  <div class="dropdown">
+    <button type="button" tabindex="0" role="button" class="btn m-1 btn-circle btn-ghost btn-xs">
+      <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="See more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical h-4 w-4">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M11 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M11 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+      </svg>
+    </button>
+
+    <ul tabaindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-fit p-2 shadow-sm">
+      <li>
+        <a href="folders/rename/<%= it.folder.id %>">Rename</a>
+      </li>
+      <li>
+        <a href="folders/delete/<%= it.folder.id %>">Delete</a>
+      </li>
+    </ul>
+  </div>
 </article>
