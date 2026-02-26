@@ -1,0 +1,5 @@
+<article class="shadow-md w-100 bg-neutral-200 rounded-md py-4 px-6">
+  <div class="flex items-center gap-2">
+    <h2 class="text-md"><%= it.file.name %></h2>
+  </div>
+</article>

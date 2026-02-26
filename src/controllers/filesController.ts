@@ -76,6 +76,7 @@ export const uploadFilePost = [
 			});
 
 		const file = req.file;
+
 		if (!file)
 			throw new Error(
 				"Issue with retrieving file that was just uploaded. Please try again.",
