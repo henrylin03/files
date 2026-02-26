@@ -2,7 +2,7 @@ import increment from "add-filename-increment";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { prisma } from "@/lib/prisma.js";
-import { validateNewFolderForm } from "@/lib/validation/validateNewFolder.js";
+import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
 
 const PAGE_TITLE = "Add folder";
 
