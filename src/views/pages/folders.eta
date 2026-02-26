@@ -1,0 +1,17 @@
+<% layout("/layouts/baseLayout") %>
+
+<main class="prose">
+  <h1 class="mb-0">Folders</h1>
+  <p>Welcome back, <%= it.currentUser.firstName %>!</p>
+  <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
+
+  <section class="mt-8">
+    <% if (Array.isArray(it.folders) && it.folders.length) { %>
+    <section class="flex items-center justify-between gap-4 not-prose">
+      <% it.folders.forEach(folder => { %>
+      <%~ include("partials/folderPreview", { folder }) %>
+      <% }) %>
+    </section>
+    <% } %>
+  </section>
+</main>
