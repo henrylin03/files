@@ -1,7 +1,7 @@
 <% layout("/layouts/baseLayout") %>
 
-<main>
-  <div class="flex items-center gap-4">
+<main class="flex flex-col gap-8">
+  <section class="flex items-center gap-4">
     <figure class="grid place-items-center w-10 h-10 prose">
       <svg role="img" aria-label="folder icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-folder">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -11,6 +11,10 @@
     <div class="prose">
       <h1><%= it.folder.name %></h1>
     </div>
-  </div>
+  </section>
+
+  <section>
+    <%~ include("partials/uploadFileBtn", { folderId: it.folder.id } ) %>
+  </section>
   <section class="folder-content"></section>
 </main>

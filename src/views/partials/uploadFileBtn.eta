@@ -1,0 +1,1 @@
+<a href="/files/upload?folder=<%= it.folderId ?? '' %>" role="button" class="btn btn-primary btn-lg">Upload file</a>

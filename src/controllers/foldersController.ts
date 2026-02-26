@@ -11,7 +11,7 @@ const foldersGet = async (_req: Request, res: Response) => {
 };
 
 const folderGet = async (req: Request, res: Response) => {
-	if (!req.user) return res.status(403).redirect("/login");
+	if (!req.user) return res.status(401).redirect("/login");
 
 	const { id: userId } = req.user;
 	const { id: folderId } = req.params;
@@ -32,7 +32,7 @@ const addFolderPost = [
 	validateNewFolderForm,
 	async (req: Request, res: Response) => {
 		const { user } = req;
-		if (!user) return res.status(403).redirect("/login");
+		if (!user) return res.status(401).redirect("/login");
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty())

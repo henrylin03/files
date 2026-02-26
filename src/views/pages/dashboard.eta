@@ -3,10 +3,7 @@
 <main class="prose">
   <h1 class="mb-0">Latest files</h1>
   <p>Welcome back, <%= it.currentUser.firstName %>!</p>
-  <section>
-    <a href="/files/upload" role="button" class="btn btn-primary btn-lg">Upload file</a>
-    <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
-  </section>
+  <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
 
   <section aria-labelledby="folder-section-heading">
     <h2 id="folder-section-heading">Folders</h2>
