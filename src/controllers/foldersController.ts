@@ -5,7 +5,7 @@ import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
 
-const PAGE_TITLE = "Add folder";
+const PAGE_TITLES = { folders: "Folders", newFolder: "Add folder" };
 
 const foldersGet = async (req: Request, res: Response) => {
 	const { user } = req;
@@ -20,9 +20,10 @@ const foldersGet = async (req: Request, res: Response) => {
 		},
 	});
 
-	res
-		.status(200)
-		.render("pages/folders", { title: "Folders", folders: allFolders });
+	res.status(200).render("pages/folders", {
+		title: PAGE_TITLES.folders,
+		folders: allFolders,
+	});
 };
 
 const folderGet = async (req: Request, res: Response) => {
@@ -48,13 +49,14 @@ const folderGet = async (req: Request, res: Response) => {
 		});
 
 	res.render("pages/folder", {
+		title: folder.name,
 		folder,
 		fileTypeToImgMap: FILE_TYPE_TO_IMG_PATH,
 	});
 };
 
 const addFolderGet = async (_req: Request, res: Response) => {
-	res.render("pages/newFolder", { title: PAGE_TITLE });
+	res.render("pages/newFolder", { title: PAGE_TITLES.newFolder });
 };
 
 const addFolderPost = [
@@ -66,7 +68,7 @@ const addFolderPost = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/newFolder", {
-				title: PAGE_TITLE,
+				title: PAGE_TITLES.newFolder,
 				errors: errors.array(),
 			});
 
