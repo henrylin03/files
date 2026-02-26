@@ -1,6 +1,7 @@
 import increment from "add-filename-increment";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
+import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
 
@@ -31,11 +32,25 @@ const folderGet = async (req: Request, res: Response) => {
 	const { id: folderId } = req.params;
 
 	const folder = await prisma.folder.findUnique({
-		where: { userId, id: Number(folderId) },
+		where: {
+			userId,
+			id: Number(folderId),
+		},
+		include: {
+			files: true,
+		},
 	});
-	if (folder === null) return res.status(404).render("pages/error");
 
-	res.render("pages/folder", { folder });
+	if (folder === null)
+		return res.status(404).render("pages/error", {
+			statusCode: 404,
+			errorMessage: "Folder not found.",
+		});
+
+	res.render("pages/folder", {
+		folder,
+		fileTypeToImgMap: FILE_TYPE_TO_IMG_PATH,
+	});
 };
 
 const addFolderGet = async (_req: Request, res: Response) => {

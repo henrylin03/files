@@ -16,5 +16,11 @@
   <section>
     <%~ include("partials/uploadFileBtn", { folderId: it.folder.id } ) %>
   </section>
-  <section class="folder-content"></section>
+  <section class="flex flex-wrap gap-4">
+    <% if (Array.isArray(it.folder.files) && it.folder.files.length) { %>
+    <% it.folder.files.forEach(file => { %>
+    <%~ include("partials/filePreview", { file, options: true })%>
+    <% })%>
+    <% } %>
+  </section>
 </main>

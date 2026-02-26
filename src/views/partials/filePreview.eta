@@ -1,0 +1,8 @@
+<article class="shadow-md bg-neutral-200 rounded-md py-4 px-6">
+  <div class="flex flex-col items-center gap-4">
+    <figure>
+      <img src="<%= it.fileTypeToImgMap[it.file.fileExtension] ?? '/icons/file.svg'  %>" width="120" height="120" />
+    </figure>
+    <h2 class="text-md font-bold"><%= it.file.name %></h2>
+  </div>
+</article>
