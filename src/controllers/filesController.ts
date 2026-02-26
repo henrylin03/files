@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { getFileExtension } from "@/lib/helpers.js";
 import { upload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
+import { getFileExtension } from "@/utils/helpers.js";
 
 const getAllowedFileTypesForUpload = (): string => {
 	const MS_WORD_FILE_TYPES = [
