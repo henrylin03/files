@@ -24,3 +24,5 @@
     <% } %>
   </section>
 </main>
+<%~ include("partials/confirmModal", {modalId: "confirm_file_delete_modal", heading: "Delete file", text: "This file will be permanently deleted. This action cannot be undone.", buttons: {submitBtn: "Delete", cancelBtn: "Cancel"}}) %>
+<script src="/js/folderPageScript.js" defer></script>

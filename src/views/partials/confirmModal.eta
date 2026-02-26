@@ -1,16 +1,13 @@
-<dialog id="confirm_folder_delete_modal" class="modal">
+<dialog id="<%= it.modalId %>" class="modal">
   <div class="modal-box prose">
-    <h3 class="text-lg font-bold">Delete folder</h3>
-    <p>
-      This will permanently delete the folder and all files inside it. This
-      action cannot be undone.
-    </p>
+    <h3 class="text-lg font-bold"><%= it.heading %></h3>
+    <p><%= it.text %></p>
     <form method="post" action="/" class="modal-backdrop flex gap-2 justify-end">
       <button type="submit" class="btn btn-error text-error-content delete-btn">
-        Delete
+        <%= it.buttons.submitBtn %>
       </button>
       <button type="button" class="btn btn-outline btn-neutral cancel-btn">
-        Cancel
+        <%= it.buttons.cancelBtn %>
       </button>
     </form>
   </div>
