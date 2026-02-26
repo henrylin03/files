@@ -32,7 +32,7 @@ const addFolderPost = [
 	validateNewFolderForm,
 	async (req: Request, res: Response) => {
 		const { user } = req;
-		if (!user) return res.status(403).redirect("/login");
+		if (!user) return res.status(401).redirect("/login");
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
