@@ -31,9 +31,20 @@ const folderGet = async (req: Request, res: Response) => {
 	const { id: folderId } = req.params;
 
 	const folder = await prisma.folder.findUnique({
-		where: { userId, id: Number(folderId) },
+		where: {
+			userId,
+			id: Number(folderId),
+		},
+		include: {
+			files: true,
+		},
 	});
-	if (folder === null) return res.status(404).render("pages/error");
+
+	if (folder === null)
+		return res.status(404).render("pages/error", {
+			statusCode: 404,
+			errorMessage: "Folder not found.",
+		});
 
 	res.render("pages/folder", { folder });
 };

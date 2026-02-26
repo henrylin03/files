@@ -16,5 +16,7 @@
   <section>
     <%~ include("partials/uploadFileBtn", { folderId: it.folder.id } ) %>
   </section>
-  <section class="folder-content"></section>
+  <section class="folder-content">
+    <%= JSON.stringify(it.folder) %>
+  </section>
 </main>
