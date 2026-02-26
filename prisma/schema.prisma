@@ -30,7 +30,7 @@ model File {
   folder        Folder   @relation(fields: [folderId], references: [id])
   folderId      Int
 
-  @@unique(name: "fileId", [userId, name])
+  @@unique(name: "fileId", [userId, name, folderId])
 }
 
 model Folder {
