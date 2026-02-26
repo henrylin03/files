@@ -1,6 +1,6 @@
 import multer from "multer";
 
-const getUniqueFilename = (file: Express.Multer.File): string => {
+const generateUniqueFilename = (file: Express.Multer.File): string => {
 	const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
 
 	const originalNameSplit = file.originalname.split(".");
@@ -13,7 +13,7 @@ const getUniqueFilename = (file: Express.Multer.File): string => {
 const storage = multer.diskStorage({
 	destination: "./uploads",
 	filename: (_req, file, callback) => {
-		const uniqueFilename = getUniqueFilename(file);
+		const uniqueFilename = generateUniqueFilename(file);
 		callback(null, uniqueFilename);
 	},
 });
