@@ -19,7 +19,7 @@
   <section class="flex flex-wrap gap-4">
     <% if (Array.isArray(it.folder.files) && it.folder.files.length) { %>
     <% it.folder.files.forEach(file => { %>
-    <%~ include("partials/filePreview", { file })%>
+    <%~ include("partials/filePreview", { file, options: true })%>
     <% })%>
     <% } %>
   </section>
