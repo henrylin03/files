@@ -32,7 +32,7 @@ export const uploadFileGet = async (req: Request, res: Response) => {
 	if (!user) return res.status(401).redirect("/login");
 
 	const { folder: folderIdToAddFile } = req.query;
-	if (!folderIdToAddFile) return res.status(400).redirect("/folders");
+	if (!folderIdToAddFile) return res.status(400).redirect("/folders"); // files cannot be folderless rn
 
 	const folder = await prisma.folder.findUnique({
 		where: {
@@ -50,6 +50,7 @@ export const uploadFileGet = async (req: Request, res: Response) => {
 	res.render("pages/newFile", {
 		title: "Upload new file",
 		allowedFileTypes: getAllowedFileTypesForUpload(),
+		folderIdToAddFile,
 	});
 };
 
@@ -59,9 +60,16 @@ export const uploadFilePost = [
 		if (!user) return res.status(401).redirect("/login");
 		next();
 	},
+
 	upload.single("file"),
-	async (_req: Request, res: Response) => {
-		console.log("upload done.");
+
+	async (req: Request, res: Response) => {
+		console.log("req.file:", req.file);
+		console.log(req.query);
+
+		// add to db using prisma client. add the reference as uploads/ for now. it's the direct path to the file.
+
 		res.redirect("/dashboard");
+		// TODO: update - redirect user to the folder again
 	},
 ];
