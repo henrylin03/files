@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import { getFileExtension } from "@/lib/helpers.js";
 import { upload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
 
@@ -64,8 +65,8 @@ export const uploadFilePost = [
 	upload.single("file"),
 
 	async (req: Request, res: Response) => {
-		console.log("req.file:", req.file);
-		console.log(req.query);
+		const { user } = req;
+		if (!user) return res.status(401).redirect("/login");
 
 		const { folder: folderIdToAddFile } = req.query;
 		if (!folderIdToAddFile)
@@ -74,9 +75,25 @@ export const uploadFilePost = [
 				errorMessage: "You must add your file to an existing folder.",
 			});
 
-		// add to db using prisma client. add the reference as uploads/ for now. it's the direct path to the file.
+		const file = req.file;
+		if (!file)
+			throw new Error(
+				"Issue with retrieving file that was just uploaded. Please try again.",
+			);
 
-		res.redirect("/dashboard");
-		// TODO: update - redirect user to the folder again
+		const { originalname, size, path } = file;
+
+		const newFile = await prisma.file.create({
+			data: {
+				name: originalname,
+				sizeInKb: size,
+				fileExtension: getFileExtension(file),
+				location: path,
+				userId: user.id,
+				folderId: Number(folderIdToAddFile),
+			},
+		});
+
+		res.redirect(`/folders/${newFile.folderId}`);
 	},
 ];
