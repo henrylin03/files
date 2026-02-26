@@ -1,8 +1,39 @@
-<article class="shadow-md bg-neutral-200 rounded-md py-4 px-6">
-  <div class="flex flex-col items-center gap-4">
-    <figure>
-      <img src="<%= it.fileTypeToImgMap[it.file.fileExtension] ?? '/icons/file.svg'  %>" width="120" height="120" />
-    </figure>
+<article class="shadow-md bg-neutral-200 rounded-md py-4 px-6 flex flex-col items-center gap-4">
+  <div class="flex gap-2 items-center translate-x-[5%]">
     <h2 class="text-md font-bold"><%= it.file.name %></h2>
+    <div class="dropdown dropdown-end">
+      <button type="button" tabindex="0" role="button" class="btn m-1 btn-circle btn-ghost btn-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="See more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical h-4 w-4">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M11 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M11 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+      </button>
+      <ul tabaindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-fit shadow-sm">
+        <li>
+          <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil w-4 h-4">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+              <path d="M13.5 6.5l4 4" />
+            </svg>Rename</a>
+        </li>
+        <li>
+          <button type="button" class="delete-file-btn" data-file-id="<%= it.file.id %>">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash w-4 h-4">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 7l16 0" />
+              <path d="M10 11l0 6" />
+              <path d="M14 11l0 6" />
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+            <span>Delete</span></button>
+        </li>
+      </ul>
+    </div>
   </div>
+  <figure class="bg-white rounded-lg p-6 w-full grid place-items-center">
+    <img src="<%= it.fileTypeToImgMap[it.file.fileExtension] ?? '/icons/file.svg'  %>" class="w-10 h-10" />
+  </figure>
 </article>
