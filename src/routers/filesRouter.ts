@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+	fileDelete,
 	filesGet,
 	uploadFileGet,
 	uploadFilePost,
@@ -8,7 +9,10 @@ import {
 const filesRouter = Router();
 
 filesRouter.get("/", filesGet);
+
 filesRouter.get("/upload", uploadFileGet);
 filesRouter.post("/upload", uploadFilePost);
+
+filesRouter.post("/{:id}/delete", fileDelete);
 
 export { filesRouter };

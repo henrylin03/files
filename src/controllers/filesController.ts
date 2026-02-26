@@ -98,3 +98,19 @@ export const uploadFilePost = [
 		res.redirect(`/folders/${newFile.folderId}`);
 	},
 ];
+
+export const fileDelete = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (!user) return res.status(401).redirect("/login");
+
+	const { id: fileId } = req.params;
+
+	const deleteFile = await prisma.file.delete({
+		where: {
+			id: Number(fileId),
+			userId: user.id,
+		},
+	});
+
+	res.redirect(`/folders/${deleteFile.folderId}`);
+};
