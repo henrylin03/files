@@ -103,9 +103,28 @@ const addFolderPost = [
 	},
 ];
 
-const folderDelete = (req: Request, res: Response) => {
-	console.log(req.params);
-	res.end();
+const folderDelete = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (!user) return res.status(401).redirect("/login");
+
+	const { id: folderId } = req.params;
+
+	const deleteFiles = prisma.file.deleteMany({
+		where: {
+			userId: user.id,
+			folderId: Number(folderId),
+		},
+	});
+
+	const deleteFolder = prisma.folder.delete({
+		where: {
+			userId: user.id,
+			id: Number(folderId),
+		},
+	});
+
+	const _transaction = await prisma.$transaction([deleteFiles, deleteFolder]);
+	res.redirect("/");
 };
 
 export { addFolderGet, addFolderPost, folderDelete, folderGet, foldersGet };
