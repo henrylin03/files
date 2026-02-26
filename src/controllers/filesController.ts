@@ -67,6 +67,13 @@ export const uploadFilePost = [
 		console.log("req.file:", req.file);
 		console.log(req.query);
 
+		const { folder: folderIdToAddFile } = req.query;
+		if (!folderIdToAddFile)
+			return res.status(400).render("pages/error", {
+				statusCode: 400,
+				errorMessage: "You must add your file to an existing folder.",
+			});
+
 		// add to db using prisma client. add the reference as uploads/ for now. it's the direct path to the file.
 
 		res.redirect("/dashboard");
