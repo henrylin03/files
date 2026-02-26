@@ -6,8 +6,22 @@ import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
 
 const PAGE_TITLE = "Add folder";
 
-const foldersGet = async (_req: Request, res: Response) => {
-	res.redirect("/");
+const foldersGet = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (!user) return res.status(401).redirect("/login");
+
+	const allFolders = await prisma.folder.findMany({
+		where: {
+			userId: user.id,
+		},
+		orderBy: {
+			name: "asc",
+		},
+	});
+
+	res
+		.status(200)
+		.render("pages/folders", { title: "Folders", folders: allFolders });
 };
 
 const folderGet = async (req: Request, res: Response) => {
