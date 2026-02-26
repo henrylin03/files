@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { passport } from "@/config/passport.js";
 import { prisma } from "@/lib/prisma.js";
-import { validateSignUpForm } from "@/lib/validation/validateSignUp.js";
+import { validateSignUpForm } from "@/validators/validateSignUp.js";
 
 const loginGet = async (req: Request, res: Response) => {
 	if (req.user) return res.redirect("/dashboard");
