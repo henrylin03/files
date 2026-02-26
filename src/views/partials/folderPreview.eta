@@ -1,5 +1,5 @@
-<article class="shadow-md flex-1 min-w-fit bg-neutral-200 rounded-md py-4 pl-4 pr-0 flex">
-  <a href="/folders/<%= it.folder.id %>">
+<article class="shadow-md flex-1 min-w-fit bg-neutral-200 rounded-md flex hover:-translate-y-1 transition-transform">
+  <a href="/folders/<%= it.folder.id %>" class="py-4 pl-4 pr-0">
     <div class="flex items-center gap-2">
       <svg role="img" aria-label="folder icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-folder">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -8,7 +8,7 @@
       <h2 class="card-title"><%= it.folder.name %></h2>
     </div>
   </a>
-  <div class="dropdown dropdown-end">
+  <div class="dropdown dropdown-end translate-y-[25%]">
     <button type="button" tabindex="0" role="button" class="btn m-1 btn-circle btn-ghost btn-xs">
       <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="See more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical h-4 w-4">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
