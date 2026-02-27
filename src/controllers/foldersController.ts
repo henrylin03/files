@@ -132,18 +132,19 @@ const folderRename = async (req: Request, res: Response) => {
 	const { user } = req;
 	if (!user) return res.status(401).redirect("/login");
 
-	const { id: folderId } = req.params;
+	//   const { id: folderId } = req.params;
 	console.log("req.body:", req.body);
 	console.log("req.params:", req.params);
-	const _updateFolder = await prisma.folder.update({
-		where: {
-			userId: user.id,
-			id: Number(folderId),
-		},
-		data: {
-			name: "rename this folder pls b0s",
-		},
-	});
+	// const _updateFolder = await prisma.folder.update({
+	// 	where: {
+	// 		userId: user.id,
+	// 		id: Number(folderId),
+	// 	},
+	// 	data: {
+	// 		name: "rename this folder pls b0s",
+	// 	},
+	// });
+	res.end();
 };
 
 export {
