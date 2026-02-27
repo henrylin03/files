@@ -35,8 +35,13 @@ const enableFolderRenamings = (modalId) => {
 	const renameFolderBtns = document.querySelectorAll(".rename-folder-btn");
 	renameFolderBtns.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
-			const targetFolderId = e.currentTarget.dataset.folderId;
+			const textField = renameModal.querySelector("input[type='text']");
+			const { folderId: targetFolderId, folderName: currentFolderName } =
+				e.currentTarget.dataset;
+
 			saveBtn.dataset.folderId = targetFolderId;
+			textField.setAttribute("value", currentFolderName);
+
 			renameModal.showModal();
 		});
 	});
