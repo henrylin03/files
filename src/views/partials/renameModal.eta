@@ -1,12 +1,14 @@
 <dialog id="<%= it.modalId %>" class="modal">
   <div class="modal-box prose">
     <h3>Rename</h3>
-    <form method="post" action="/" class="modal-backdrop flex gap-2 justify-end">
-      <button type="button" class="btn btn-outline btn-neutral cancel-btn">
-        Cancel
-      </button>
-      <button type="submit" class="btn btn-error text-error-content">OK
-      </button>
+    <form method="post" action="/" class="flex flex-col gap-4">
+      <input type="text" placeholder="Type here" class="input w-full" />
+      <div class="flex gap-2 justify-end modal-backdrop">
+        <button type="button" class="btn btn-outline btn-neutral cancel-btn">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary">OK
+        </button>
     </form>
   </div>
 </dialog>
