@@ -40,17 +40,22 @@ const enableFolderRenamings = (modalId) => {
 				e.currentTarget.dataset;
 
 			textField.value = currentFolderName;
-
-			saveBtn.dataset.folderId = targetFolderId;
 			renameModal.dataset.folderName = currentFolderName;
+			renameModal.dataset.folderId = targetFolderId;
 
 			textField.select();
 			renameModal.showModal();
 		});
 	});
 
-	saveBtn.addEventListener("click", (e) => {
-		const folderId = e.currentTarget.dataset.folderId;
+	renameModal.addEventListener("submit", (e) => {
+		const { folderId, folderName: previousFolderName } =
+			e.currentTarget.dataset;
+		const inputtedNewFolderName = textField.value;
+
+		if (inputtedNewFolderName.trim() === previousFolderName)
+			return e.preventDefault();
+
 		renameModal
 			.querySelector("form")
 			.setAttribute("action", getRenameFolderPath(folderId));
