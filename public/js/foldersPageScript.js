@@ -31,19 +31,20 @@ const enableFolderDeletions = (modalId) => {
 const enableFolderRenamings = (modalId) => {
 	const renameModal = document.querySelector(`#${modalId}`);
 	const saveBtn = renameModal.querySelector("button[type='submit']");
+	const textField = renameModal.querySelector("input[type='text']");
 
 	const renameFolderBtns = document.querySelectorAll(".rename-folder-btn");
 	renameFolderBtns.forEach((btn) => {
 		btn.addEventListener("click", (e) => {
-			const textField = renameModal.querySelector("input[type='text']");
 			const { folderId: targetFolderId, folderName: currentFolderName } =
 				e.currentTarget.dataset;
 
+			textField.value = currentFolderName;
+
 			saveBtn.dataset.folderId = targetFolderId;
-			textField.setAttribute("value", currentFolderName);
+			renameModal.dataset.folderName = currentFolderName;
 
 			textField.select();
-
 			renameModal.showModal();
 		});
 	});
@@ -58,6 +59,11 @@ const enableFolderRenamings = (modalId) => {
 	renameModal
 		.querySelector(".cancel-btn")
 		.addEventListener("click", () => renameModal.close());
+
+	renameModal.addEventListener("close", (e) => {
+		const currentFolderName = e.currentTarget.dataset.folderName;
+		textField.value = currentFolderName;
+	});
 };
 
 /* main */
