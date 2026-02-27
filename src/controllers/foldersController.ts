@@ -107,25 +107,33 @@ const folderDelete = async (req: Request, res: Response) => {
 };
 
 const folderRename = [
+	validateFolderName,
 	async (req: Request, res: Response) => {
 		const { user } = req;
 		if (!user) return res.status(401).redirect("/login");
-	},
-	validateFolderName,
-	async (req: Request, res: Response) => {
-		//   const { id: folderId } = req.params;
-		console.log("req.body:", req.body);
-		console.log("req.params:", req.params);
-		// const _updateFolder = await prisma.folder.update({
-		// 	where: {
-		// 		userId: user.id,
-		// 		id: Number(folderId),
-		// 	},
-		// 	data: {
-		// 		name: "rename this folder pls b0s",
-		// 	},
-		// });
-		res.end();
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty())
+			return res.status(400).render("pages/folders", {
+				title: PAGE_TITLES.folders,
+				errors: errors.array(),
+			});
+
+		console.log("errors:", errors);
+
+		const { id: folderId } = req.params;
+		const { folderName: newFolderName } = matchedData(req);
+		const _updateFolder = await prisma.folder.update({
+			where: {
+				userId: user.id,
+				id: Number(folderId),
+			},
+			data: {
+				name: newFolderName,
+			},
+		});
+
+		res.redirect("/folders");
 	},
 ];
 

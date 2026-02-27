@@ -2,7 +2,7 @@
   <div class="modal-box prose">
     <h3>Rename</h3>
     <form method="post" action="/" class="flex flex-col gap-4 z-9">
-      <input type="text" placeholder="Type here" class="input w-full" id="folder-name-input" name="newFolderName" required />
+      <input type="text" placeholder="Type here" class="input w-full" id="folder-name-input" name="folderName" required />
       <div class="flex gap-2 justify-end">
         <button type="button" class="btn btn-outline btn-neutral cancel-btn">
           Cancel
