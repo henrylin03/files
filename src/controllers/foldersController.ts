@@ -1,4 +1,3 @@
-import increment from "add-filename-increment";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
@@ -73,7 +72,6 @@ const addFolderPost = [
 			});
 
 		const { folderName } = matchedData(req);
-
 		const newFolder = await prisma.folder.create({
 			data: {
 				name: folderName,
