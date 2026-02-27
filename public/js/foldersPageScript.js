@@ -30,7 +30,6 @@ const enableFolderDeletions = (modalId) => {
 
 const enableFolderRenamings = (modalId) => {
 	const renameModal = document.querySelector(`#${modalId}`);
-	const saveBtn = renameModal.querySelector("button[type='submit']");
 	const textField = renameModal.querySelector("#folder-name-input");
 
 	const renameFolderBtns = document.querySelectorAll(".rename-folder-btn");
