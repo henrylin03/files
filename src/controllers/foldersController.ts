@@ -1,4 +1,3 @@
-import increment from "add-filename-increment";
 import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
@@ -72,28 +71,7 @@ const addFolderPost = [
 				errors: errors.array(),
 			});
 
-		let { folderName } = matchedData(req);
-		let existingFolderWithSameName = await prisma.folder.findUnique({
-			where: {
-				folderId: {
-					userId: user.id,
-					name: folderName,
-				},
-			},
-		});
-
-		while (existingFolderWithSameName !== null) {
-			folderName = increment(folderName, { platform: "win32" });
-			existingFolderWithSameName = await prisma.folder.findUnique({
-				where: {
-					folderId: {
-						userId: user.id,
-						name: folderName,
-					},
-				},
-			});
-		}
-
+		const { folderName } = matchedData(req);
 		const newFolder = await prisma.folder.create({
 			data: {
 				name: folderName,
@@ -117,7 +95,6 @@ const folderDelete = async (req: Request, res: Response) => {
 			folderId: Number(folderId),
 		},
 	});
-
 	const deleteFolder = prisma.folder.delete({
 		where: {
 			userId: user.id,
