@@ -17,5 +17,7 @@
     <% } %>
   </section>
 </main>
-<%~ include("partials/confirmModal", { modalId: "confirm_folder_delete_modal", heading: "Delete folder", text: "This will permanently delete the folder and all files inside it. This action cannot be undone.", buttons: { submitBtn: "Delete", cancelBtn: "Cancel" }}) %>
+<%~ include("partials/confirmModal", { modalId: "confirm_folder_delete_modal", heading: "Delete folder", text: "This will permanently delete the folder and all files inside it. This action cannot be undone."}) %>
+<%~ include("partials/renameModal", { modalId: "rename_folder_modal" }) %>
+
 <script src="/js/foldersPageScript.js" defer></script>

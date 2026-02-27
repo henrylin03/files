@@ -1,25 +1,58 @@
-const modal = document.querySelector("#confirm_folder_delete_modal");
-const confirmDeleteButton = modal.querySelector(".delete-btn");
-
 const getDeleteFolderPath = (folderId) => `/folders/${folderId}/delete`;
+const getRenameFolderPath = (folderId) => `/folders/${folderId}/rename`;
 
-const deleteFolderButtons = document.querySelectorAll(".delete-folder-btn");
-deleteFolderButtons.forEach((btn) => {
-	btn.addEventListener("click", (e) => {
-		const folderIdForDeletion = e.currentTarget.dataset.folderId;
-		confirmDeleteButton.dataset.folderId = folderIdForDeletion;
-		modal.showModal();
+const enableFolderDeletions = (modalId) => {
+	const confirmDeleteFolderModal = document.querySelector(`#${modalId}`);
+	const confirmDeleteFolderBtn =
+		confirmDeleteFolderModal.querySelector(".delete-btn");
+
+	const deleteFolderButtons = document.querySelectorAll(".delete-folder-btn");
+	deleteFolderButtons.forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			const folderIdForDeletion = e.currentTarget.dataset.folderId;
+			confirmDeleteFolderBtn.dataset.folderId = folderIdForDeletion;
+			confirmDeleteFolderModal.showModal();
+		});
 	});
-});
 
-confirmDeleteButton.addEventListener("click", (e) => {
-	const folderIdForDeletion = e.currentTarget.dataset.folderId;
+	confirmDeleteFolderBtn.addEventListener("click", (e) => {
+		const folderIdForDeletion = e.currentTarget.dataset.folderId;
 
-	modal
-		.querySelector("form")
-		.setAttribute("action", getDeleteFolderPath(folderIdForDeletion));
-});
+		confirmDeleteFolderModal
+			.querySelector("form")
+			.setAttribute("action", getDeleteFolderPath(folderIdForDeletion));
+	});
 
-modal
-	.querySelector(".cancel-btn")
-	.addEventListener("click", () => modal.close());
+	confirmDeleteFolderModal
+		.querySelector(".cancel-btn")
+		.addEventListener("click", () => confirmDeleteFolderModal.close());
+};
+
+const enableFolderRenamings = (modalId) => {
+	const renameModal = document.querySelector(`#${modalId}`);
+	const saveBtn = renameModal.querySelector("button[type='submit']");
+
+	const renameFolderBtns = document.querySelectorAll(".rename-folder-btn");
+	renameFolderBtns.forEach((btn) => {
+		btn.addEventListener("click", (e) => {
+			const targetFolderId = e.currentTarget.dataset.folderId;
+			saveBtn.dataset.folderId = targetFolderId;
+			renameModal.showModal();
+		});
+	});
+
+	saveBtn.addEventListener("click", (e) => {
+		const folderId = e.currentTarget.dataset.folderId;
+		renameModal
+			.querySelector("form")
+			.setAttribute("action", getRenameFolderPath(folderId));
+	});
+
+	renameModal
+		.querySelector(".cancel-btn")
+		.addEventListener("click", () => renameModal.close());
+};
+
+/* main */
+enableFolderDeletions("confirm_folder_delete_modal");
+enableFolderRenamings("rename_folder_modal");
