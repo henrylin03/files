@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
 import { prisma } from "@/lib/prisma.js";
-import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
+import { validateFolderName } from "@/validators/validateFolder.js";
 
 const PAGE_TITLES = { folders: "Folders", newFolder: "Add folder" };
 
@@ -60,7 +60,7 @@ const addFolderGet = async (_req: Request, res: Response) => {
 };
 
 const addFolderPost = [
-	validateNewFolderForm,
+	validateFolderName,
 	async (req: Request, res: Response) => {
 		const { user } = req;
 		if (!user) return res.status(401).redirect("/login");
@@ -128,24 +128,28 @@ const folderDelete = async (req: Request, res: Response) => {
 	res.redirect("/");
 };
 
-const folderRename = async (req: Request, res: Response) => {
-	const { user } = req;
-	if (!user) return res.status(401).redirect("/login");
-
-	//   const { id: folderId } = req.params;
-	console.log("req.body:", req.body);
-	console.log("req.params:", req.params);
-	// const _updateFolder = await prisma.folder.update({
-	// 	where: {
-	// 		userId: user.id,
-	// 		id: Number(folderId),
-	// 	},
-	// 	data: {
-	// 		name: "rename this folder pls b0s",
-	// 	},
-	// });
-	res.end();
-};
+const folderRename = [
+	async (req: Request, res: Response) => {
+		const { user } = req;
+		if (!user) return res.status(401).redirect("/login");
+	},
+	validateFolderName,
+	async (req: Request, res: Response) => {
+		//   const { id: folderId } = req.params;
+		console.log("req.body:", req.body);
+		console.log("req.params:", req.params);
+		// const _updateFolder = await prisma.folder.update({
+		// 	where: {
+		// 		userId: user.id,
+		// 		id: Number(folderId),
+		// 	},
+		// 	data: {
+		// 		name: "rename this folder pls b0s",
+		// 	},
+		// });
+		res.end();
+	},
+];
 
 export {
 	addFolderGet,
