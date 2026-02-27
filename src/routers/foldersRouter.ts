@@ -4,6 +4,7 @@ import {
 	addFolderPost,
 	folderDelete,
 	folderGet,
+	folderRename,
 	foldersGet,
 } from "@/controllers/foldersController.js";
 
@@ -15,7 +16,7 @@ foldersRouter.get("/new", addFolderGet);
 foldersRouter.post("/new", ...addFolderPost);
 
 foldersRouter.get("/{:id}", folderGet);
-
+foldersRouter.post("/{:id}/rename", ...folderRename);
 foldersRouter.post("/{:id}/delete", folderDelete);
 
 export { foldersRouter };

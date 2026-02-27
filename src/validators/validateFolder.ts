@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-export const validateNewFolderForm = [
+export const validateFolderName = [
 	body("folderName")
 		.trim()
 		.notEmpty()

@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { matchedData, validationResult } from "express-validator";
 import { FILE_TYPE_TO_IMG_PATH } from "@/data/imgPaths.js";
 import { prisma } from "@/lib/prisma.js";
-import { validateNewFolderForm } from "@/validators/validateNewFolder.js";
+import { validateFolderName } from "@/validators/validateFolder.js";
 
 const PAGE_TITLES = { folders: "Folders", newFolder: "Add folder" };
 
@@ -59,7 +59,7 @@ const addFolderGet = async (_req: Request, res: Response) => {
 };
 
 const addFolderPost = [
-	validateNewFolderForm,
+	validateFolderName,
 	async (req: Request, res: Response) => {
 		const { user } = req;
 		if (!user) return res.status(401).redirect("/login");
@@ -106,4 +106,50 @@ const folderDelete = async (req: Request, res: Response) => {
 	res.redirect("/");
 };
 
-export { addFolderGet, addFolderPost, folderDelete, folderGet, foldersGet };
+const folderRename = [
+	validateFolderName,
+	async (req: Request, res: Response) => {
+		const { user } = req;
+		if (!user) return res.status(401).redirect("/login");
+
+		const allFolders = await prisma.folder.findMany({
+			where: {
+				userId: user.id,
+			},
+			orderBy: {
+				name: "asc",
+			},
+		});
+
+		const errors = validationResult(req);
+		if (!errors.isEmpty())
+			return res.status(400).render("pages/folders", {
+				title: PAGE_TITLES.folders,
+				folders: allFolders,
+				errors: errors.array(),
+			});
+
+		const { id: folderId } = req.params;
+		const { folderName: newFolderName } = matchedData(req);
+		const _updateFolder = await prisma.folder.update({
+			where: {
+				userId: user.id,
+				id: Number(folderId),
+			},
+			data: {
+				name: newFolderName,
+			},
+		});
+
+		res.redirect("/folders");
+	},
+];
+
+export {
+	addFolderGet,
+	addFolderPost,
+	folderDelete,
+	folderGet,
+	foldersGet,
+	folderRename,
+};

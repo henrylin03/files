@@ -1,7 +1,10 @@
-<article role="alert" class="alert alert-error alert-outline px-4 py-0 mb-6">
+<article role="alert" class="alert alert-error alert-soft shadow-sm p-4 mb-6 flex flex-col gap-2">
+  <% if (it.text) { %>
+  <h3 class="text-lg font-bold"><%= it.text %></h3>
+  <% } %>
   <ul role="list" class="marker:text-error">
     <% it.errors.forEach(err => { %>
-      <li><%= err.msg %></li>
+    <li><%= err.msg %></li>
     <% }) %>
   </ul>
 </article>

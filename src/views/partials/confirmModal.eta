@@ -3,11 +3,10 @@
     <h3 class="text-lg font-bold"><%= it.heading %></h3>
     <p><%= it.text %></p>
     <form method="post" action="/" class="modal-backdrop flex gap-2 justify-end">
-      <button type="submit" class="btn btn-error text-error-content delete-btn">
-        <%= it.buttons.submitBtn %>
-      </button>
       <button type="button" class="btn btn-outline btn-neutral cancel-btn">
-        <%= it.buttons.cancelBtn %>
+        Cancel
+        </button>
+        <button type="submit" class="btn btn-error text-error-content delete-btn">Delete
       </button>
     </form>
   </div>

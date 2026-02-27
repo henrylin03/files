@@ -1,13 +1,20 @@
 <% layout("/layouts/baseLayout") %>
 
-<main class="prose">
-  <h1 class="mb-0">Folders</h1>
-  <p>Welcome back, <%= it.currentUser.firstName %>!</p>
+<main class="w-full">
+  <div class="prose mb-4">
+    <h1 class="mb-0">Folders</h1>
+    <p>Welcome back, <%= it.currentUser.firstName %>!</p>
+  </div>
   <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
 
-  <section class="mt-8">
+  <section class="mt-8 w-full">
+    <% if (Array.isArray(it.errors) && it.errors.length) { %>
+    <div class="w-xl">
+      <%~ include("partials/errorList", { text: "Unable to rename folder", options: true }) %>
+    </div>
+    <% } %>
     <% if (Array.isArray(it.folders) && it.folders.length) { %>
-    <section class="flex items-center justify-between gap-4 not-prose">
+    <section class="flex items-center gap-4">
       <% it.folders.forEach(folder => { %>
       <%~ include("partials/folderPreview", { folder }) %>
       <% }) %>
@@ -15,5 +22,7 @@
     <% } %>
   </section>
 </main>
-<%~ include("partials/confirmModal", { modalId: "confirm_folder_delete_modal", heading: "Delete folder", text: "This will permanently delete the folder and all files inside it. This action cannot be undone.", buttons: { submitBtn: "Delete", cancelBtn: "Cancel" }}) %>
+<%~ include("partials/confirmModal", { modalId: "confirm_folder_delete_modal", heading: "Delete folder", text: "This will permanently delete the folder and all files inside it. This action cannot be undone."}) %>
+<%~ include("partials/renameModal", { modalId: "rename_folder_modal" }) %>
+
 <script src="/js/foldersPageScript.js" defer></script>
