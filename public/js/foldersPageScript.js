@@ -42,6 +42,8 @@ const enableFolderRenamings = (modalId) => {
 			saveBtn.dataset.folderId = targetFolderId;
 			textField.setAttribute("value", currentFolderName);
 
+			textField.select();
+
 			renameModal.showModal();
 		});
 	});
