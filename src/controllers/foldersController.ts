@@ -112,14 +112,22 @@ const folderRename = [
 		const { user } = req;
 		if (!user) return res.status(401).redirect("/login");
 
+		const allFolders = await prisma.folder.findMany({
+			where: {
+				userId: user.id,
+			},
+			orderBy: {
+				name: "asc",
+			},
+		});
+
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/folders", {
 				title: PAGE_TITLES.folders,
+				folders: allFolders,
 				errors: errors.array(),
 			});
-
-		console.log("errors:", errors);
 
 		const { id: folderId } = req.params;
 		const { folderName: newFolderName } = matchedData(req);

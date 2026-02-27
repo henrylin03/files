@@ -8,6 +8,11 @@
   <a href="/folders/new" role="button" class="btn btn-primary btn-lg btn-outline">Add folder</a>
 
   <section class="mt-8 w-full">
+    <% if (Array.isArray(it.errors) && it.errors.length) { %>
+    <div class="w-xl">
+      <%~ include("partials/errorList", { text: "Unable to rename folder", options: true }) %>
+    </div>
+    <% } %>
     <% if (Array.isArray(it.folders) && it.folders.length) { %>
     <section class="flex items-center gap-4">
       <% it.folders.forEach(folder => { %>
