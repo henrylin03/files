@@ -1,0 +1,5 @@
+<% layout("/layouts/baseLayout") %>
+
+<main>
+  <h1>File details</h1>
+</main>
