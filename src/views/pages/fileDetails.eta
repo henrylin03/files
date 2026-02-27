@@ -58,11 +58,12 @@
             <td><%= it.file.sizeInKb %> KB</td>
           </tr>
           <tr>
-            <th scope="row">Upload time</th>
-            <td><%= it.file.uploadedAt %></td>
+            <th scope="row">Upload date & time</th>
+            <td class="upload-date-time"><%= it.file.uploadedAt %></td>
           </tr>
         </tbody>
       </table>
     </article>
   </section>
 </main>
+<script src="/js/fileDetailsPageScript.js" defer></script>
