@@ -72,27 +72,7 @@ const addFolderPost = [
 				errors: errors.array(),
 			});
 
-		let { folderName } = matchedData(req);
-		let existingFolderWithSameName = await prisma.folder.findUnique({
-			where: {
-				folderId: {
-					userId: user.id,
-					name: folderName,
-				},
-			},
-		});
-
-		while (existingFolderWithSameName !== null) {
-			folderName = increment(folderName, { platform: "win32" });
-			existingFolderWithSameName = await prisma.folder.findUnique({
-				where: {
-					folderId: {
-						userId: user.id,
-						name: folderName,
-					},
-				},
-			});
-		}
+		const { folderName } = matchedData(req);
 
 		const newFolder = await prisma.folder.create({
 			data: {
