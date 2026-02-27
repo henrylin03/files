@@ -31,6 +31,7 @@ const enableFolderDeletions = (modalId) => {
 const enableFolderRenamings = (modalId) => {
 	const renameModal = document.querySelector(`#${modalId}`);
 	const textField = renameModal.querySelector("#folder-name-input");
+	const submitBtn = renameModal.querySelector("button[type='submit']");
 
 	const renameFolderBtns = document.querySelectorAll(".rename-folder-btn");
 	renameFolderBtns.forEach((btn) => {
@@ -45,6 +46,17 @@ const enableFolderRenamings = (modalId) => {
 			textField.select();
 			renameModal.showModal();
 		});
+	});
+
+	textField.addEventListener("input", (e) => {
+		const INVALID_INPUTS_REGEX = /[^A-Za-z0-9 _()-]/g;
+		e.currentTarget.value = e.currentTarget.value.replace(
+			INVALID_INPUTS_REGEX,
+			"",
+		);
+
+		if (e.currentTarget.value === "") submitBtn.disabled = true;
+		else submitBtn.disabled = false;
 	});
 
 	renameModal.addEventListener("submit", (e) => {
