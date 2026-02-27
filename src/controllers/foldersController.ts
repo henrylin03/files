@@ -117,7 +117,6 @@ const folderDelete = async (req: Request, res: Response) => {
 			folderId: Number(folderId),
 		},
 	});
-
 	const deleteFolder = prisma.folder.delete({
 		where: {
 			userId: user.id,
@@ -129,4 +128,29 @@ const folderDelete = async (req: Request, res: Response) => {
 	res.redirect("/");
 };
 
-export { addFolderGet, addFolderPost, folderDelete, folderGet, foldersGet };
+const folderRename = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (!user) return res.status(401).redirect("/login");
+
+	const { id: folderId } = req.params;
+	console.log("req.body:", req.body);
+	console.log("req.params:", req.params);
+	const _updateFolder = await prisma.folder.update({
+		where: {
+			userId: user.id,
+			id: Number(folderId),
+		},
+		data: {
+			name: "rename this folder pls b0s",
+		},
+	});
+};
+
+export {
+	addFolderGet,
+	addFolderPost,
+	folderDelete,
+	folderGet,
+	foldersGet,
+	folderRename,
+};
