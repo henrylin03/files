@@ -28,6 +28,28 @@ export const filesGet = (_req: Request, res: Response) => {
 	res.redirect("/");
 };
 
+export const fileDetailsGet = async (req: Request, res: Response) => {
+	const { user } = req;
+	if (!user) return res.status(401).redirect("/login");
+
+	const { id: fileId } = req.params;
+	const file = await prisma.file.findUnique({
+		where: {
+			id: Number(fileId),
+			userId: user.id,
+		},
+	});
+
+	if (file === null)
+		return res.status(404).render("pages/error", {
+			statusCode: 404,
+			errorMessage:
+				"Cannot find file. Please return to the previous page to see all files.",
+		});
+
+	res.render("pages/fileDetails", { title: file.name, file });
+};
+
 export const uploadFileGet = async (req: Request, res: Response) => {
 	const { user } = req;
 	if (!user) return res.status(401).redirect("/login");
