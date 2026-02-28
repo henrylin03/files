@@ -97,20 +97,37 @@ export const uploadFilePost = [
 				errorMessage: "You must add your file to an existing folder.",
 			});
 
-		const file = req.file;
-
-		if (!file)
+		const fileForUpload = req.file;
+		if (!fileForUpload)
 			throw new Error(
 				"Issue with retrieving file that was just uploaded. Please try again.",
 			);
 
-		const { originalname, size, path } = file;
+		const {
+			filename: filenameWithUniqueSuffix,
+			originalname,
+			size,
+			path,
+		} = fileForUpload;
+
+		const fileWithSameOriginalName = await prisma.file.findMany({
+			where: {
+				name: originalname,
+				userId: user.id,
+				folderId: Number(folderIdToAddFile),
+			},
+		});
+		const hasDuplicateOriginalFilenameInFolder =
+			Array.isArray(fileWithSameOriginalName) &&
+			fileWithSameOriginalName.length > 0;
 
 		const newFile = await prisma.file.create({
 			data: {
-				name: originalname,
+				name: hasDuplicateOriginalFilenameInFolder
+					? filenameWithUniqueSuffix
+					: originalname,
 				sizeInKb: size,
-				fileExtension: getFileExtension(file),
+				fileExtension: getFileExtension(fileForUpload),
 				location: path,
 				userId: user.id,
 				folderId: Number(folderIdToAddFile),
