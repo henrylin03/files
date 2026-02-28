@@ -10,10 +10,11 @@ import {
 const filesRouter = Router();
 
 filesRouter.get("/", filesGet);
-filesRouter.get("/{:id}", fileDetailsGet);
 
 filesRouter.get("/upload", uploadFileGet);
 filesRouter.post("/upload", uploadFilePost);
+
+filesRouter.get("/{:id}", fileDetailsGet);
 
 filesRouter.post("/{:id}/delete", fileDelete);
 
