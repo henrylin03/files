@@ -96,12 +96,13 @@ export const uploadFilePost = [
 			});
 
 		let cloudinaryUploadResult = null;
+		const uniqueDisplayName = generateUniqueFilename(fileForUpload);
 		try {
 			const b64 = Buffer.from(fileForUpload.buffer).toString("base64");
 			const dataUri = `data:${fileForUpload.mimetype};base64,${b64}`;
 			cloudinaryUploadResult = await cloudinary.uploader.upload(dataUri, {
 				resource_type: "auto",
-				public_id: generateUniqueFilename(fileForUpload),
+				public_id: uniqueDisplayName,
 			});
 		} catch (err) {
 			console.error(err);
@@ -109,40 +110,29 @@ export const uploadFilePost = [
 			throw new Error(`Error when uploading file to cloud: ${err}`);
 		}
 
-		console.log("fileForUpload:", fileForUpload);
-		console.log("cloudinaryUploadResult:", cloudinaryUploadResult);
+		const filesWithSameOriginalNameInFolder = await prisma.file.findMany({
+			where: {
+				name: fileForUpload.originalname,
+				userId: user.id,
+				folderId: Number(folderIdToAddFile),
+			},
+		});
+		const hasDuplicateOriginalFilenameInFolder =
+			filesWithSameOriginalNameInFolder.length;
 
-		// const {
-		//   filename: filenameWithUniqueSuffix,
-		//   originalname,
-		//   size,
-		//   path,
-		// } = fileForUpload;
-
-		// const fileWithSameOriginalName = await prisma.file.findMany({
-		//   where: {
-		//     name: originalname,
-		//     userId: user.id,
-		//     folderId: Number(folderIdToAddFile),
-		//   },
-		// });
-		// const hasDuplicateOriginalFilenameInFolder =
-		//   Array.isArray(fileWithSameOriginalName) &&
-		//   fileWithSameOriginalName.length > 0;
-
-		// const newFile = await prisma.file.create({
-		// 	data: {
-		// 		name: hasDuplicateOriginalFilenameInFolder
-		// 			? filenameWithUniqueSuffix
-		// 			: originalname,
-		// 		sizeInKb: size,
-		// 		fileExtension: getFileExtension(fileForUpload),
-		// 		location: path,
-		// 		userId: user.id,
-		// 		folderId: Number(folderIdToAddFile),
-		// 	},
-		// });
-
+		const newFile = await prisma.file.create({
+			data: {
+				name: hasDuplicateOriginalFilenameInFolder
+					? uniqueDisplayName
+					: fileForUpload.originalname,
+				sizeInKb: fileForUpload.size,
+				location: cloudinaryUploadResult.secure_url,
+				userId: user.id,
+				folderId: Number(folderIdToAddFile),
+				fileExtension: `.${cloudinaryUploadResult.format}`,
+				uploadedAt: cloudinaryUploadResult.created_at,
+			},
+		});
 		res.redirect(`/folders/${newFile.folderId}`);
 	},
 ];

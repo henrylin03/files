@@ -1,9 +1,3 @@
-export const getFileExtension = (file: Express.Multer.File): `.${string}` => {
-	const originalNameSplit = file.originalname.split(".");
-	const fileExtension = originalNameSplit.pop();
-	return `.${fileExtension}`;
-};
-
 export const generateUniqueFilename = (file: Express.Multer.File): string => {
 	const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
 
