@@ -103,6 +103,7 @@ export const uploadFilePost = [
 			cloudinaryUploadResult = await cloudinary.uploader.upload(dataUri, {
 				resource_type: "auto",
 				public_id: uniqueDisplayName,
+				asset_folder: `user-${user.id}`,
 			});
 		} catch (err) {
 			console.error(err);
