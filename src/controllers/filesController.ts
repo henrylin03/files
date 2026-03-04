@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { cloudinary } from "@/config/cloudinary.js";
 import { upload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
-import { generateUniqueFilename } from "@/utils/helpers.js";
+import { generateUniqueFilename, getFileExtension } from "@/utils/helpers.js";
 
 const getAllowedFileTypesForUpload = (): string => {
 	const MS_WORD_FILE_TYPES = [
@@ -130,7 +130,9 @@ export const uploadFilePost = [
 				url: cloudinaryUploadResult.secure_url,
 				userId: user.id,
 				folderId: Number(folderIdToAddFile),
-				fileExtension: `.${cloudinaryUploadResult.format}`,
+				fileExtension: cloudinaryUploadResult.format
+					? `.${cloudinaryUploadResult.format}`
+					: getFileExtension(fileForUpload),
 				uploadedAt: cloudinaryUploadResult.created_at,
 			},
 		});
