@@ -115,11 +115,9 @@ export const uploadFilePost = [
 			throw new Error(`Error when uploading file to cloud: ${err}`);
 		}
 
-		console.log(cloudinaryUploadResult);
-
 		const filesWithSameOriginalNameInFolder = await prisma.file.findMany({
 			where: {
-				name: fileForUpload.originalname,
+				displayName: fileForUpload.originalname,
 				userId: user.id,
 				folderId: Number(folderIdToAddFile),
 			},
@@ -129,7 +127,8 @@ export const uploadFilePost = [
 
 		const newFile = await prisma.file.create({
 			data: {
-				name: hasDuplicateOriginalFilenameInFolder
+				name: uniqueDisplayName,
+				displayName: hasDuplicateOriginalFilenameInFolder
 					? uniqueDisplayName
 					: fileForUpload.originalname,
 				sizeInKb: fileForUpload.size,
