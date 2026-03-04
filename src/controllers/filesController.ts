@@ -112,6 +112,8 @@ export const uploadFilePost = [
 			throw new Error(`Error when uploading file to cloud: ${err}`);
 		}
 
+		console.log(cloudinaryUploadResult);
+
 		const filesWithSameOriginalNameInFolder = await prisma.file.findMany({
 			where: {
 				name: fileForUpload.originalname,
