@@ -8,26 +8,7 @@ import {
 	getFileExtension,
 } from "@/utils/helpers.js";
 
-const getAllowedFileTypesForUpload = (): string => {
-	const MS_WORD_FILE_TYPES = [
-		".doc",
-		".docx",
-		".xml",
-		"application/msword",
-		"application/vnd.openxmlformats-officedocument.wordpressingml.document",
-	];
-
-	const acceptedFileTypes = [
-		"image/png",
-		"image/jpg",
-		".pdf",
-		".txt",
-		...MS_WORD_FILE_TYPES,
-	];
-
-	const fileTypeString = acceptedFileTypes.join(",");
-	return fileTypeString;
-};
+const ALLOWED_FILE_TYPES_FOR_UPLOAD = ["image/*", ".pdf"];
 
 export const filesGet = (_req: Request, res: Response) => {
 	res.redirect("/");
@@ -77,7 +58,7 @@ export const uploadFileGet = async (req: Request, res: Response) => {
 
 	res.render("pages/newFile", {
 		title: "Upload new file",
-		allowedFileTypes: getAllowedFileTypesForUpload(),
+		allowedFileTypes: ALLOWED_FILE_TYPES_FOR_UPLOAD,
 		folderIdToAddFile,
 	});
 };
