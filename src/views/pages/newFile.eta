@@ -2,6 +2,9 @@
 
 <main class="prose">
   <h1>Upload file</h1>
+  <% if (it.error) { %>
+  <%~ include("partials/errorBlock", { options: true }) %>
+  <% } %>
   <form action="/files/upload?folder=<%= it.folderIdToAddFile %>" method="POST" enctype="multipart/form-data">
     <fieldset class="fieldset">
       <legend class="fieldset-legend text-sm">Choose a file*</legend>

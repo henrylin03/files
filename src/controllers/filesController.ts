@@ -1,6 +1,7 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
+import { MulterError } from "multer";
 import { cloudinary } from "@/config/cloudinary.js";
-import { upload } from "@/lib/multer.js";
+import { multerUpload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
 import {
 	generateUniqueFilename,
@@ -64,7 +65,15 @@ export const uploadFileGet = async (req: Request, res: Response) => {
 };
 
 export const uploadFilePost = [
-	upload.single("file"),
+	(req: Request, res: Response, next: NextFunction) => {
+		const upload = multerUpload.single("file");
+		upload(req, res, (err) => {
+			if (err instanceof MulterError)
+				return res.status(400).render("pages/newFile", { error: err.message });
+			if (err) return res.status(400).render("pages/newFile", { error: err });
+			next();
+		});
+	},
 	async (req: Request, res: Response) => {
 		const { user, file: fileForUpload } = req;
 		if (!user) return res.status(401).redirect("/login");
