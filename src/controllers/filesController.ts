@@ -1,6 +1,7 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
+import { MulterError } from "multer";
 import { cloudinary } from "@/config/cloudinary.js";
-import { upload } from "@/lib/multer.js";
+import { multerUpload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
 import {
 	generateUniqueFilename,
@@ -8,26 +9,14 @@ import {
 	getFileExtension,
 } from "@/utils/helpers.js";
 
-const getAllowedFileTypesForUpload = (): string => {
-	const MS_WORD_FILE_TYPES = [
-		".doc",
-		".docx",
-		".xml",
-		"application/msword",
-		"application/vnd.openxmlformats-officedocument.wordpressingml.document",
-	];
+const ALLOWED_MIMETYPES_FOR_UPLOAD = [
+	"image/jpg",
+	"image/png",
+	"image/jpeg",
+	"application/pdf",
+];
 
-	const acceptedFileTypes = [
-		"image/png",
-		"image/jpg",
-		".pdf",
-		".txt",
-		...MS_WORD_FILE_TYPES,
-	];
-
-	const fileTypeString = acceptedFileTypes.join(",");
-	return fileTypeString;
-};
+const MAX_FILESIZE_FOR_UPLOAD_IN_KB = 2 * 1024 * 1024; // 2MB
 
 export const filesGet = (_req: Request, res: Response) => {
 	res.redirect("/");
@@ -77,13 +66,21 @@ export const uploadFileGet = async (req: Request, res: Response) => {
 
 	res.render("pages/newFile", {
 		title: "Upload new file",
-		allowedFileTypes: getAllowedFileTypesForUpload(),
+		allowedFileTypes: ALLOWED_MIMETYPES_FOR_UPLOAD,
 		folderIdToAddFile,
 	});
 };
 
 export const uploadFilePost = [
-	upload.single("file"),
+	(req: Request, res: Response, next: NextFunction) => {
+		const upload = multerUpload.single("file");
+		upload(req, res, (err) => {
+			if (err instanceof MulterError)
+				return res.status(400).render("pages/newFile", { error: err.message });
+			if (err) return res.status(400).render("pages/newFile", { error: err });
+			next();
+		});
+	},
 	async (req: Request, res: Response) => {
 		const { user, file: fileForUpload } = req;
 		if (!user) return res.status(401).redirect("/login");
@@ -91,6 +88,16 @@ export const uploadFilePost = [
 			throw new Error(
 				"Issue with retrieving file that was just uploaded. Please try again.",
 			);
+
+		if (
+			!ALLOWED_MIMETYPES_FOR_UPLOAD.includes(fileForUpload.mimetype) ||
+			fileForUpload.size > MAX_FILESIZE_FOR_UPLOAD_IN_KB
+		)
+			return res.status(400).render("pages/error", {
+				statusCode: 400,
+				errorMessage:
+					"Only PDFs and image files (jpg, png) less than 2MB can be uploaded.",
+			});
 
 		const { folder: folderIdToAddFile } = req.query;
 		if (!folderIdToAddFile)
