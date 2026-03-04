@@ -2,8 +2,11 @@ import type { Request, Response } from "express";
 import { cloudinary } from "@/config/cloudinary.js";
 import { upload } from "@/lib/multer.js";
 import { prisma } from "@/lib/prisma.js";
-import { generateUniqueFilename, getFileExtension } from "@/utils/helpers.js";
-import { getCloudinaryDownloadLink } from "../utils/helpers";
+import {
+	generateUniqueFilename,
+	getCloudinaryDownloadLink,
+	getFileExtension,
+} from "@/utils/helpers.js";
 
 const getAllowedFileTypesForUpload = (): string => {
 	const MS_WORD_FILE_TYPES = [
