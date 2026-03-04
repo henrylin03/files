@@ -52,7 +52,7 @@ export const fileDetailsGet = async (req: Request, res: Response) => {
 				"Cannot find file. Please return to the previous page to see all files.",
 		});
 
-	res.render("pages/fileDetails", { title: file.name, file });
+	res.render("pages/fileDetails", { title: file.displayName, file });
 };
 
 export const uploadFileGet = async (req: Request, res: Response) => {
