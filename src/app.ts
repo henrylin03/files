@@ -1,7 +1,7 @@
 import path from "node:path";
 import { Eta } from "eta";
 import express from "express";
-import buildEtaEngine from "./lib/buildEtaEngine.js";
+import buildEtaEngine from "@/lib/buildEtaEngine.js";
 import "dotenv/config";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import session from "express-session";
@@ -25,8 +25,8 @@ const viewsPath = path.join(rootPath, "src/views");
 
 const eta = new Eta({ views: viewsPath });
 app.set("views", viewsPath);
-app.set("view engine", "eta");
 app.engine("eta", buildEtaEngine(eta));
+app.set("view engine", "eta");
 
 app.use(express.static(path.join(rootPath, "public")));
 app.use(express.urlencoded({ extended: true }));
