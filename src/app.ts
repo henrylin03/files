@@ -20,15 +20,15 @@ if (!cookieSecret)
 		"COOKIE_SECRET env variable is required for session-based auth",
 	);
 
-const currentPath = import.meta.dirname;
-const viewsPath = path.join(currentPath, "views");
+const rootPath = path.resolve();
+const viewsPath = path.join(rootPath, "src/views");
 
 const eta = new Eta({ views: viewsPath });
 app.set("views", viewsPath);
 app.set("view engine", "eta");
 app.engine("eta", buildEtaEngine(eta));
 
-app.use(express.static(path.join(currentPath, "..", "public")));
+app.use(express.static(path.join(rootPath, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 const prismaSessionStore = new PrismaSessionStore(prisma, {
