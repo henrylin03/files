@@ -1,0 +1,4 @@
+<% layout("/layouts/baseLayout") %>
+
+<%~ include("/partials/header") %>
+<%~ it.body %>
