@@ -23,8 +23,7 @@
           </div>
         </fieldset>
         <div>
-          <label for="passwordInput" class="text-sm text-neutral opacity-60">Password</label>
-          <input type="password" id="passwordInput" name="password" class="input w-full" required />
+          <%~ include("partials/input/passwordInput") %>
         </div>
         <button type="submit" class="btn btn-primary btn-lg w-full mt-6">
           Sign up

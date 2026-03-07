@@ -13,8 +13,7 @@
           <input type="text" id="emailInput" name="username" class="input w-full" required />
         </li>
         <li>
-          <label for="passwordInput" class="text-sm text-neutral opacity-60">Password</label>
-          <input type="password" id="passwordInput" name="password" class="input w-full" required />
+          <%~ include("partials/input/passwordInput") %>
         </li>
       </ul>
       <button type="submit" class="btn btn-primary btn-lg w-full">
