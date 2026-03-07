@@ -57,7 +57,13 @@
 	}
 
 	p,
-	a {
+	a,
+	li,
+	small {
 		text-wrap: pretty;
+	}
+
+	button {
+		font-family: "Josefin Sans", Calibri, Arial, Helvetica, sans-serif;
 	}
 }
