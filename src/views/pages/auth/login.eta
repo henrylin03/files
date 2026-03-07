@@ -38,5 +38,11 @@
         Log in
       </button>
     </form>
+    <p class="text-sm text-center mt-4 text-neutral-500">
+      Not a member yet?
+      <a href="/signup" class="link link-hover link-primary font-bold"
+        >Sign up for free</a
+      >
+    </p>
   </div>
 </main>
