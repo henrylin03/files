@@ -5,6 +5,11 @@ import { passport } from "@/config/passport.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateSignUpForm } from "@/validators/validateSignUp.js";
 
+const PAGE_TITLES = {
+	login: "Log in",
+	signup: "Sign up for free",
+};
+
 const LOGIN_ERROR_MESSAGES = {
 	username: "Sorry, we couldn't find an account with that username.",
 	password: "Sorry, that password isn't right. Please try again.",
@@ -16,11 +21,11 @@ const loginGet = async (req: Request, res: Response) => {
 
 	const { session } = req;
 	if (!session.messages || !session.messages.length)
-		return res.render("pages/auth/login", { title: "Log in" });
+		return res.render("pages/auth/login", { title: PAGE_TITLES.login });
 
 	const loginFieldWithError: LoginField = session.messages.at(-1);
 	res.render("pages/auth/login", {
-		title: "Log in",
+		title: PAGE_TITLES.login,
 		error: LOGIN_ERROR_MESSAGES[loginFieldWithError],
 	});
 };
@@ -33,7 +38,7 @@ const loginPost = passport.authenticate("local", {
 
 const signupGet = async (req: Request, res: Response) => {
 	if (req.user) return res.redirect("/");
-	res.render("pages/auth/signup", { title: "Sign up for free" });
+	res.render("pages/auth/signup", { title: PAGE_TITLES.signup });
 };
 
 const signupPost = [
@@ -47,7 +52,7 @@ const signupPost = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/auth/signup", {
-				title: "Sign up for free",
+				title: PAGE_TITLES.signup,
 				errors: errors.array(),
 				firstName,
 				lastName,
