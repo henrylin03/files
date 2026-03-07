@@ -1,20 +1,42 @@
 <% layout("/layouts/authLayout") %>
 
 <main class="h-full flex flex-col items-center justify-center">
-  <section class="mx-auto">
-    <h1 class="text-5xl text-neutral text-center">Log in or sign up</h1>
-    <form action="/username-check" method="post">
-      <label for="emailInput">Email</label>
-      <input
-        type="email"
-        id="emailInput"
-        name="username"
-        class="input w-full"
-        required
-      />
-      <button type="submit" class="btn btn-primary btn-lg btn-block">
-        Continue
+  <div class="w-lg mx-auto p-20">
+    <h1 class="text-5xl text-neutral text-center mb-2">Log in</h1>
+    <form
+      action="/username-check"
+      method="post"
+      class="flex flex-col items-center gap-6 w-full"
+    >
+      <ul class="flex flex-col gap-2 w-full">
+        <li>
+          <label for="emailInput" class="text-sm text-neutral opacity-60"
+            >Email</label
+          >
+          <input
+            type="text"
+            id="emailInput"
+            name="username"
+            class="input w-full"
+            required
+          />
+        </li>
+        <li>
+          <label for="passwordInput" class="text-sm text-neutral opacity-60"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="passwordInput"
+            name="password"
+            class="input w-full"
+            required
+          />
+        </li>
+      </ul>
+      <button type="submit" class="btn btn-primary btn-lg w-full">
+        Log in
       </button>
     </form>
-  </section>
+  </div>
 </main>
