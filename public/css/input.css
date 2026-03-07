@@ -1,5 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
 @plugin "daisyui" {
-	themes: corporate --default;
+	themes: false;
 }
+@plugin "daisyui/theme" {
+	name: midnight-sun-dance;
+	default: true;
+	prefersdark: false;
+	color-scheme: "light";
+	--color-base-100: oklch(100% 0 0);
+	--color-base-200: oklch(93% 0 0);
+	--color-base-300: oklch(86% 0 0);
+	--color-base-content: oklch(22.389% 0.031 278.072);
+	--color-primary: #15616d;
+	--color-primary-content: oklch(100% 0 0);
+	--color-secondary: #ffecd1;
+	--color-secondary-content: #001524;
+	--color-accent: #ff7d00;
+	--color-accent-content: #001524;
+	--color-neutral: #001524;
+	--color-neutral-content: oklch(98% 0.003 247.858);
+	--color-info: #15616d;
+	--color-info-content: oklch(100% 0 0);
+	--color-success: oklch(62% 0.194 149.214);
+	--color-success-content: oklch(100% 0 0);
+	--color-warning: oklch(85% 0.199 91.936);
+	--color-warning-content: oklch(0% 0 0);
+	--color-error: #ff7d00;
+	--color-error-content: oklch(0% 0 0);
+	--radius-selector: 1rem;
+	--radius-field: 0.5rem;
+	--radius-box: 1rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 0;
+	--noise: 0;
+}
+
 @plugin "@tailwindcss/typography";
+
+@layer base {
+	* {
+		font-family: "Roboto", Calibri, Arial, Helvetica, sans-serif;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-wrap: balance;
+		font-family: "Josefin Sans", Calibri, Arial, Helvetica, sans-serif;
+	}
+
+	p,
+	a {
+		text-wrap: pretty;
+	}
+}
