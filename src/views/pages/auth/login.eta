@@ -4,7 +4,7 @@
   <div class="w-lg mx-auto p-20">
     <h1 class="text-5xl text-neutral text-center mb-2">Log in</h1>
     <form
-      action="/username-check"
+      action="/login"
       method="post"
       class="flex flex-col items-center gap-6 w-full"
     >
