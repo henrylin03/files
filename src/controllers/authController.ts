@@ -5,6 +5,12 @@ import { passport } from "@/config/passport.js";
 import { prisma } from "@/lib/prisma.js";
 import { validateSignUpForm } from "@/validators/validateSignUp.js";
 
+const LOGIN_ERROR_MESSAGES = {
+	username: "Sorry, we couldn't find an account with that username.",
+	password: "Sorry, that password isn't right. Please try again.",
+} as const;
+type LoginField = keyof typeof LOGIN_ERROR_MESSAGES;
+
 const loginGet = async (req: Request, res: Response) => {
 	if (req.user) return res.redirect("/");
 
@@ -12,8 +18,11 @@ const loginGet = async (req: Request, res: Response) => {
 	if (!session.messages || !session.messages.length)
 		return res.render("pages/auth/login", { title: "Log in" });
 
-	const loginErrorMessage = session.messages.at(-1);
-	res.render("pages/auth/login", { title: "Log in", error: loginErrorMessage });
+	const loginFieldWithError: LoginField = session.messages.at(-1);
+	res.render("pages/auth/login", {
+		title: "Log in",
+		error: LOGIN_ERROR_MESSAGES[loginFieldWithError],
+	});
 };
 
 const loginPost = passport.authenticate("local", {
@@ -24,7 +33,7 @@ const loginPost = passport.authenticate("local", {
 
 const signupGet = async (req: Request, res: Response) => {
 	if (req.user) return res.redirect("/");
-	res.render("pages/auth/signup", { title: "Sign up" });
+	res.render("pages/auth/signup", { title: "Sign up for free" });
 };
 
 const signupPost = [
@@ -38,6 +47,7 @@ const signupPost = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
 			return res.status(400).render("pages/auth/signup", {
+				title: "Sign up for free",
 				errors: errors.array(),
 				firstName,
 				lastName,
