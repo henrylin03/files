@@ -4,7 +4,7 @@
   <div class="max-w-lg mx-auto px-6 py-20">
     <h1 class="text-5xl text-neutral text-center mb-4">Sign up for free</h1>
     <% if (Array.isArray(it.errors) && it.errors.length > 0) { %>
-    <%~ include("partials/errorList", { errors: it.errors }) %>
+    <%~ include("partials/errors/errorList", { options: true }) %>
     <% } %>
     <form action="/signup" method="post" class="max-w-sm">
       <div class="flex flex-col gap-2 w-full">
