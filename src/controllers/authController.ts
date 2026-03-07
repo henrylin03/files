@@ -47,7 +47,7 @@ const signupPost = [
 		const formData = matchedData(req, {
 			onlyValidData: false,
 		});
-		const { firstName, lastName, username } = formData;
+		const { firstName, lastName, email } = formData;
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty())
@@ -56,7 +56,7 @@ const signupPost = [
 				errors: errors.array(),
 				firstName,
 				lastName,
-				username,
+				email,
 			});
 
 		const { password } = formData;
@@ -67,7 +67,7 @@ const signupPost = [
 			data: {
 				firstName,
 				lastName,
-				username,
+				email,
 				password: hashedPassword,
 			},
 		});
