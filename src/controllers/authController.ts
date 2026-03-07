@@ -21,17 +21,17 @@ const loginGet = async (req: Request, res: Response) => {
 
 	if (
 		typeof req.session.messages === "undefined" ||
-		!req.session.messages.length
+		req.session.messages.length === 0
 	)
 		return res.render("pages/auth/login", { title: PAGE_TITLES.login });
 
 	const loginFieldWithError: LoginField = req.session.messages.at(-1);
-	req.session.messages.length = 0; // clear array
-
 	res.render("pages/auth/login", {
 		title: PAGE_TITLES.login,
 		error: LOGIN_ERROR_MESSAGES[loginFieldWithError],
 	});
+
+	req.session.messages.length = 0;
 };
 
 const loginPost = passport.authenticate("local", {
