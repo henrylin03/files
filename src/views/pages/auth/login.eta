@@ -10,10 +10,10 @@
       <ul class="flex flex-col gap-2 w-full">
         <li>
           <label for="emailInput" class="text-sm text-neutral opacity-60">Email</label>
-          <input type="text" id="emailInput" name="username" class="input w-full" required />
+          <input type="text" id="emailInput" name="username" class="input w-full" autocomplete="username" required />
         </li>
         <li>
-          <%~ include("partials/input/passwordInput") %>
+          <%~ include("partials/input/passwordInput", {isNewPassword: false}) %>
         </li>
       </ul>
       <button type="submit" class="btn btn-primary btn-lg w-full">
